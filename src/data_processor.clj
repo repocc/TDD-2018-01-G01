@@ -1,7 +1,7 @@
-(ns data-processor)
+(ns data-processor (:require [state-initializer :refer :all]))
 
 (defn initialize-processor [rules]
-  nil)
+  (get-state rules))
          
 (defn process-data [state new-data]
   [nil []])
