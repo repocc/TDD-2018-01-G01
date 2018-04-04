@@ -1,5 +1,6 @@
 (ns condition-processor (:use [clojure.string :as string]))
 
+;;todo define a global translator for the DSL
 (defn apply-operation [identifier args]
       (cond
         (= identifier '=) (= (first args) (second args))
@@ -24,4 +25,4 @@
 ;; past-data is collection of data previously processed
 ;; see the manual for the correctness of the condition expression
 (defn pass-condition? [condition data past-data]
-      (first (filter #(pass? condition data %) past-data)))
+      (some #(pass? condition data %) past-data))

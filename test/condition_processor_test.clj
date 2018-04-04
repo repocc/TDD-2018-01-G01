@@ -14,7 +14,7 @@
 (def data3 {"sender" "ramona" "receiver" "scott" "subject" "carta importante"})
 (def data4 {"sender" "ramona" "receiver" "scott" "subject" "holo"})
 
-(def dataActual {"sender" "ramona" "receiver" "scott" "subject" "hola como va"})
+(def data-actual {"sender" "ramona" "receiver" "scott" "subject" "holo"})
 
 (def past-data [data1 data2 data3])
 
@@ -28,6 +28,13 @@
             (pass? condition1 data1 data2)))
     (is (= false
             (pass? condition1 data1 data2)))))
+
+
+(deftest pass-condition-test
+         (testing "Should pass condition given data"
+                  (is (= true
+                         (pass-condition? condition1 data-actual past-data)))
+                  ))
 
 
 
