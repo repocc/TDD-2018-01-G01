@@ -14,7 +14,7 @@
 (def data3 {"sender" "ramona" "receiver" "scott" "subject" "carta importante"})
 (def data4 {"sender" "ramona" "receiver" "scott" "subject" "holo"})
 
-(def data-actual {"sender" "ramona" "receiver" "scott" "subject" "holo"})
+(def data-actual {"miau" false})
 
 (def past-data [data1 data2 data3])
 

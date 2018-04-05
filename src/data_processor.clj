@@ -4,17 +4,16 @@
   (get-state rules))
 
 (defn process-data [state new-data]
-  [(process-new-state state new-data)  (process-signals state data past-data)])
+      (let [new-state (process-new-state state new-data)])
+  [(new-state) (process-signals new-state data past-data)])
 
 (defn query-counter [state counter-name counter-args]
   0)
 
 
 (defn process-new-state [old-state new-data]
-      (nil))
+      (do (def rules (increment-counters old-state new-data))
+          (def past-data (save-past-data old-state new data))
+          ({:rules rules :past-data past-data})))
 
 (defn process-signals [state data past-data] ([]))
-
-
-;;return true if the condition is met
-(defn pass-condition? [condition data past-data] (true))
