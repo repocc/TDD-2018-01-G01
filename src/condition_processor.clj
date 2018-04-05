@@ -15,8 +15,8 @@
 (defn pass? [condition data past-data]
       "Given a current data and a past data, determines if the given condition is true"
       (cond
-        (current? condition) (get data (nth condition 1))
-        (past? condition) (get past-data (nth condition 1))
+        (current? condition) (get data (second condition))
+        (past? condition) (get past-data (second condition))
         :else
         (apply-operation (first condition) (map #(pass? % data past-data) (rest condition)))))
 
