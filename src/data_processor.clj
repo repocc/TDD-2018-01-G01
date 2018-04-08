@@ -8,7 +8,8 @@
   [(new-state) (process-signals new-state data past-data)])
 
 (defn query-counter [state counter-name counter-args]
-  0)
+	(get-value (get-counter counter-name state) counter-args)  
+)
 
 
 (defn process-new-state [old-state new-data]
