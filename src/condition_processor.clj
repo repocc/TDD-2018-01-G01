@@ -20,9 +20,16 @@
         :else
         (apply-operation (first condition) (map #(pass? % data past-data) (rest condition)))))
 
+(defn maybe-pass? [condition data past-data]
+  "Calls pass? to see if a condition is met. Return false in case of exception"
+  (try
+    (pass? condition data past-data)
+    (catch Exception e false)))
+
 ;; return true if the condition is met
 ;; data is the current data being processed
 ;; past-data is collection of data previously processed
 ;; see the manual for the correctness of the condition expression
 (defn pass-condition? [condition data past-data]
-      (some #(pass? condition data %) past-data))
+  (not (nil? (some #(maybe-pass? condition data %) past-data))))
+
