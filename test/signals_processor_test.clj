@@ -2,7 +2,7 @@
   (:require [clojure.test :refer :all]
             [signals-processor :refer :all]))
 
-(def state {:rules '({{:type "counter",
+(def state {:rules '({:type "counter",
                       :name "email-count",
                       :params [],
                       :condition true,
@@ -12,15 +12,12 @@
                       :params [],
                       :condition (current "spam"),
                       :truth-table ({:key [], :value 40})}
-                     {:type "counter",
-                      :name "spam-important-table",
-                      :params [(current "spam") (current "important")],
-                      :condition true,
-                      :truth-table ({:key [true true], :value 55}, {:key [true false], :value 66})}
                      {:type "signal",
                       :name "spam-fraction",
-                      :operation (/ (counter-value "spam-count" []) (counter-value "email-count" [])), :condition (true)}
-                     :past-data []})
+                      :operation (/ (counter-value "spam-count" []) (counter-value "email-count" []))
+                      :condition (true)}
+                     )
+            :past-data [{}]})
 
 (def true-condition '(true))
 
@@ -47,10 +44,10 @@
 
 
 
-(deftest pass-condition-test-all
-  (testing "Should pass condition given data"
+(deftest process-signals-test
+  (testing "Should return signal data"
            (is (= false
-                  (pass-condition? condition1 data-actual past-data)))
+                  (process-signal state data-actual past-data)))
            (is (= true
                   (pass-condition? condition4 data-match past-data)))
            (is (= true

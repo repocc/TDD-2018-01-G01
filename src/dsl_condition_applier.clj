@@ -28,3 +28,4 @@
     (= identifier 'ends-with?) (apply string/ends-with? args)
     (= identifier true) true
     (= identifier false) false))
+
