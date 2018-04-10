@@ -37,6 +37,3 @@
                   (is (= true
                          (pass-condition? condition1 data-match past-data)))
                   ))
-
-
-

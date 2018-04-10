@@ -1,4 +1,5 @@
-(ns counter-increaser (:use [clojure.string :as string]))
+(ns counter-increaser (:use [clojure.string :as string]
+                      :require [condition-processor :refer :all]))
 
 
 (defn data-to-table-key [data]
@@ -26,6 +27,16 @@
   (if (key-is-not-present? truth-table data)
     (join-counters truth-table {:key (into [] (map data-to-table-key data)) :value 1})
     (map (get-new-truth-table [:key (into [] (map data-to-table-key data))]) truth-table))
+  )
+
+(defn get-new-state [rule data past-data]
+  (if (pass-condition? (:condition rule) data past-data)
+    (inc-counter-value (:truth-table rule) data)
+    rule)
+  )
+
+(defn evaluate-counter [state data]
+  (map (get-new-state (:rules state) data (:past-data state)))
   )
 
 ;;should return new counter with its updated state
