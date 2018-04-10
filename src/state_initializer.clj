@@ -11,11 +11,14 @@
                                :truth-table {}
                                })
 
-;; todo complete this definition
-(defn rule-to-signal [rule] {:type "signal"})
+(defn rule-to-signal [rule] {:type "signal"
+                             :name (keys (second rule))
+                             :operation (first (vals (nth rule 1)))
+                             :condition (nth rule 2)
+                             })
 
 (defn transform-to-state-row [rule]
       (if (signal? rule) (rule-to-signal rule) (rule-to-counter rule)))
 
 (defn get-state [rules] {:rules (map transform-to-state-row rules)
-                         :past-data []})
+                        :past-data [{}]})

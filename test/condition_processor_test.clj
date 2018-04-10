@@ -51,4 +51,6 @@
                          (pass-condition? condition4 data-match past-data)))
                   (is (= true
                          (pass-condition? true-condition data-match past-data)))
+                  (is (= true
+                         (pass-condition? true-condition data-match [{}])))
                   ))
