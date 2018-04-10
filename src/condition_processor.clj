@@ -26,9 +26,6 @@
     (counter-value? condition) (get (query-processor/get-counter (second condition) (nth condition 2))  )
     :else (dsl-condition-applier/apply-operation (first condition) (map #(eval-condition % data past-data) (rest condition)))))
 
-
-
-
 (defn maybe-pass? [condition data past-data]
   "Calls pass? to see if a condition is met. Return false in case of exception"
   (try
@@ -41,4 +38,6 @@
 ;; see the manual for the correctness of the condition expression
 (defn pass-condition? [condition data past-data]
   (not (nil? (some #(maybe-pass? condition data %) past-data))))
+
+
 
