@@ -2,40 +2,55 @@
   (:require [clojure.test :refer :all]
             [condition-processor :refer :all]))
 
-;;todo completar tests.
-
 (def condition1 '(and (!= (current "sender") (past "receiver")) (includes? (past "subject") (current "subject"))))
 (def condition2 '(or (= (current "sender") (past "receiver")) (includes? (past "subject") (current "subject"))))
 (def condition3 '(and (= (current "sender") (past "receiver")) (includes? (past "subject") (current "subject"))))
 (def condition4 '(and (= (current "sender") (past "receiver")) (includes? (past "subject") (current "subject"))))
 
-(def data1 {"sender" "ramona" "receiver" "jorge" "subject" "holo"})
-(def data2 {"sender" "culkin" "receiver" "ramona" "subject" "holo"})
-(def data3 {"sender" "ramona" "receiver" "scott" "subject" "carta importante"})
-(def data4 {"sender" "ramona" "receiver" "scott" "subject" "holo"})
+(def true-condition '(true))
+
+(def condition5 '(or (< (current "n") (past "n")) (= (mod (current "n") 1) 1)))
+
+(def data1 {"sender" "ramona", "receiver" "jorge", "subject" "holo"})
+(def data2 {"sender" "culkin", "receiver" "ramona", "subject" "holo"})
+(def data3 {"sender" "ramona", "receiver" "scott", "subject" "carta importante"})
+(def data4 {"sender" "juan", "receiver" "jorge", "subject" "holo"})
 
 (def data-actual {"miau" false})
-(def data-match {"sender" "ramona" "receiver" "scott" "subject" "holo"})
+(def data-match {"sender" "ramona", "receiver" "scott", "subject" "holo"})
+
 (def past-data [data1 data2 data3])
+
+(def dataWithNumbers1 {"n" 10})
+(def dataWithNumbers2 {"n" 11})
 
 (deftest pass-condition-test
   (testing "Should pass condition given data"
     (is (= false
-           (pass? condition1 data1 data2)))
+           (eval-condition condition1 data1 data2)))
     (is (= true
-           (pass? condition1 data1 data4)))
+           (eval-condition condition1 data1 data4)))
     (is (= false
-            (pass? condition1 data1 data2)))
+            (eval-condition condition1 data1 data2)))
     (is (= false
-            (pass? condition1 data1 data2)))))
+            (eval-condition condition1 data1 data2)))
+    (is (= true
+             (eval-condition true-condition data1 data2)))
+    (is (= false
+            (eval-condition condition5 dataWithNumbers2 dataWithNumbers1)))
+    (is (= true
+            (eval-condition condition5 dataWithNumbers1 dataWithNumbers2)))))
 
 
-(deftest pass-condition-test
+
+(deftest pass-condition-test-all
          (testing "Should pass condition given data"
                   (is (= false
                          (pass-condition? condition1 data-actual past-data)))
                   (is (= true
-                         (pass-condition? condition1 data-match past-data)))
+                         (pass-condition? condition4 data-match past-data)))
+                  (is (= true
+                         (pass-condition? true-condition data-match past-data)))
                   ))
 
 
