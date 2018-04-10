@@ -29,16 +29,26 @@
     (map (get-new-truth-table [:key (into [] (map data-to-table-key data))]) truth-table))
   )
 
-(defn get-new-state [rule data past-data]
-  (if (pass-condition? (:condition rule) data past-data)
-    (inc-counter-value (:truth-table rule) data)
-    rule)
-  )
+(defn transform-rule [rule truth-table]  {:type (:type rule)
+                                         :name (:name rule)
+                                         :params (:params rule)
+                                         :condition (:condition rule)
+                                         :truth-table truth-table
+                                         })
 
-(defn evaluate-counter [state data]
-  (map (get-new-state (:rules state) data (:past-data state)))
+(defn get-new-rule [data past-data]
+  (fn[rule]
+    (if (pass-condition? (:condition rule) data past-data)
+      (transform-rule rule (inc-counter-value (:truth-table rule) data))
+      rule)
   )
+)
 
-;;should return new counter with its updated state
-;;(defn inc-counter [state new-data]
-;;  (update state :truth-table (inc-counter-value (state :truth-table) new-data) (state)))
+(defn get-new-state [rules state] {
+        :rules rules
+        :past-data (:past-data state)
+})
+
+(defn process-counter [state data]
+  (get-new-state (map (get-new-rule data (:past-data state)) (:rules state)) state)
+)

@@ -1,18 +1,28 @@
 (ns counter-increaser-test
   (:require [clojure.test :refer :all]
             [counter-increaser :refer :all]
-            [condition-processor :refer :all]))
+            [condition-processor :refer :all]
+            [state-initializer :refer :all]
+            ))
 
 (def truth-table [{:key [true true] :value 1}, {:key [true false] :value 1}])
-(def truth-table2 [{:key [true] :value 1}])
 
 (def data1 {"spam" true, "important" true})
 (def data2 {"spam" false, "important" false})
 (def data3 {"spam" false, "important" true})
 
-(def rule {:type "counter" :name "spam-counter" :params [] :condition (current "spam") :truth-table truth-table2})
+(def rule {:type "counter" :name "spam-important-table" :params [] :condition true :truth-table truth-table})
 
 (def past-data [data1, data2])
+
+(def rules '((define-counter "email-count" []
+               true)
+             (define-counter "spam-count" []
+               (current "spam"))))
+
+(def rules-mapped (map transform-to-state-row rules))
+
+(def state (get-state rules))
 
 (deftest data-to-table-key-test
   (testing "Mapping data to truth table key"
@@ -38,8 +48,24 @@
       (:key (nth (inc-counter-value truth-table data2) 2)))))
 )
 
-(deftest get-new-state-test
-  (testing "Testing get new state"
-    (is (= [false, false]
-      (get-new-state rule data3 past-data))))
+(deftest get-new-rule-test
+  (testing "Testing get new rule when condition is true"
+    (is (= [false, true]
+      (:key (nth (get-new-rule rule data3 past-data) 2))))
+    (is (= 2
+      (:value (nth (get-new-rule rule data1 past-data) 0)))))
 )
+
+(deftest evaluate-counter-test
+  (testing "Evaluating counter"
+    (is (= [false, true]
+      (map (get-new-rule data2 past-data) (:rules state)))))
+  )
+
+(deftest process-counter-test
+  (testing "Processing counter"
+    (is (= [false, false]
+      (:key (:truth-table (nth (:rules (process-counter state data2)) 0)))))
+    (is (= {}
+      (:truth-table (nth (:rules (process-counter state data2)) 1)))))
+  )
