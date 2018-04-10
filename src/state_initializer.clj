@@ -17,5 +17,5 @@
 (defn transform-to-state-row [rule]
       (if (signal? rule) (rule-to-signal rule) (rule-to-counter rule)))
 
-(defn get-state [rules] (:rules (map transform-to-state-row rules)
-                         :past-data []))
+(defn get-state [rules] {:rules (map transform-to-state-row rules)
+                         :past-data []})
