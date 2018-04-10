@@ -1,9 +1,11 @@
 (ns condition-processor (:require [clojure.string :as string]
-                              [dsl-condition]))
+                              [dsl-condition-applier]
+                              [query-processor]))
 
+;; TODO this should be a defmulti and define counter-value in process-signal module
 (defn current? [value] (= (nth value 0) 'current ))
 (defn past? [value] (= (nth value 0) 'past ))
-
+(defn counter-value? [value] (= (nth value 0) 'counter-value ))
 
 (defmulti eval-condition (fn [condition data past-data]
                            [(type condition)]))
@@ -21,7 +23,10 @@
   (cond
     (current? condition) (get data (second condition))
     (past? condition) (get past-data (second condition))
-    :else (dsl-condition/apply-operation (first condition) (map #(eval-condition % data past-data) (rest condition)))))
+    (counter-value? condition) (get (query-processor/get-counter (second condition) (nth condition 2))  )
+    :else (dsl-condition-applier/apply-operation (first condition) (map #(eval-condition % data past-data) (rest condition)))))
+
+
 
 
 (defn maybe-pass? [condition data past-data]
