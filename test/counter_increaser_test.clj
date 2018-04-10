@@ -48,20 +48,6 @@
       (:key (nth (inc-counter-value truth-table data2) 2)))))
 )
 
-(deftest get-new-rule-test
-  (testing "Testing get new rule when condition is true"
-    (is (= [false, true]
-      (:key (nth (get-new-rule rule data3 past-data) 2))))
-    (is (= 2
-      (:value (nth (get-new-rule rule data1 past-data) 0)))))
-)
-
-(deftest evaluate-counter-test
-  (testing "Evaluating counter"
-    (is (= [false, true]
-      (map (get-new-rule data2 past-data) (:rules state)))))
-  )
-
 (deftest process-counter-test
   (testing "Processing counter"
     (is (= [false, false]
