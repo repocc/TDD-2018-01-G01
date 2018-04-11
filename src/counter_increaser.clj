@@ -1,9 +1,11 @@
 (ns counter-increaser (:use [clojure.string :as string]
                       :require [condition-processor :refer :all]))
 
+(defn compare-args? [keyTT args]
+      (= (compare keyTT args) 0))
 
 (defn filter-by-key [truth-table parameters]
-  (filter #(= (:key %) parameters) truth-table)
+  (filter #(compare-args? (:key %) parameters) truth-table)
   )
 
 (defn key-is-not-present? [truth-table parameters]

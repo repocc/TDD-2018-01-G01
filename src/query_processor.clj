@@ -5,7 +5,7 @@
   )
 
 (defn equal-args? [keyTT args]
-  (= (compare keyTT args) 0))
+  (= keyTT args))
 
 (defn maybe-get-value [row params]
   (:value (first (filter #(equal-args? (:key %) params) (:truth-table (first row))))))
