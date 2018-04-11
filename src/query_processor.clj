@@ -8,10 +8,11 @@
   (= (compare keyTT args) 0))
 
 (defn maybe-get-value [row params]
-  (do (print row))
   (:value (first (filter #(equal-args? (:key %) params) (:truth-table (first row))))))
 
 (defn get-value [row params]
   (if (nil? (maybe-get-value row params)) 0 (maybe-get-value row params)))
 
-
+(defn get-query-counter-value [state counter-name counter-args]
+  (get-value (get-counter counter-name state) counter-args)
+  )
