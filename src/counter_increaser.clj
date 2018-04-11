@@ -13,9 +13,15 @@
 ;;concat counters
 (defn join-counters [list1 list2] (conj list1 list2))
 
+(defn inc-value [pos]
+  {
+    :key (:key pos)
+    :value (inc (:value pos))
+  })
+
 (defn get-new-truth-table [[key-data data]]
   (fn[pos]
-    (if (= data (key-data pos)) (update pos :value inc) pos))
+    (if (= data (key-data pos)) (inc-value pos) pos))
 )
 
 ;;accede to truth table value, increment it if key is in map, or create a new key if it isn't
@@ -23,6 +29,7 @@
   (if (key-is-not-present? truth-table parameters)
     (join-counters truth-table {:key parameters :value 1})
     (map (get-new-truth-table [:key parameters]) truth-table))
+
   )
 
 (defn transform-rule [rule truth-table]  {:type (:type rule)

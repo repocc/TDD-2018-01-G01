@@ -5,15 +5,16 @@
             [state-initializer :refer :all]
             ))
 
-(def truth-table [{:key [true true] :value 1}, {:key [true false] :value 1}])
+(def truth-table [{:key [true true] :value 1}, {:key [true false] :value 1}, {:key [] :value 1}])
 
 (def parameters1 [true, true])
 (def parameters2 [false, false])
 (def parameters3 [false, true])
+(def parameters4 [])
 
 (def rule {:type "counter" :name "spam-important-table" :params [] :condition true :truth-table truth-table})
 
-(def past-data [parameters1, parameters2])
+(def past-data ["spam" true, "spam" true])
 
 (def rules '((define-counter "email-count" []
                true)
@@ -35,7 +36,9 @@
 (deftest inc-counter-value-key-present-test
   (testing "Inc counter value when key is present"
     (is (= 2
-      (:value (nth (inc-counter-value truth-table parameters1) 0)))))
+      (:value (nth (inc-counter-value truth-table parameters1) 0))))
+      (is (= 2
+        (:value (nth (inc-counter-value truth-table parameters4) 2)))))
 )
 
 (deftest inc-counter-value-key-not-present-test
