@@ -2,16 +2,12 @@
                       :require [condition-processor :refer :all]))
 
 
-(defn data-to-table-key [data]
-  (nth data 1)
+(defn filter-by-key [truth-table parameters]
+  (filter #(= (:key %) parameters) truth-table)
   )
 
-(defn filter-by-key [truth-table data]
-  (filter #(= (:key %) (into [] (map data-to-table-key data))) truth-table)
-  )
-
-(defn key-is-not-present? [truth-table data]
-  (empty? (filter-by-key truth-table data))
+(defn key-is-not-present? [truth-table parameters]
+  (empty? (filter-by-key truth-table parameters))
   )
 
 ;;concat counters
@@ -23,10 +19,10 @@
 )
 
 ;;accede to truth table value, increment it if key is in map, or create a new key if it isn't
-(defn inc-counter-value [truth-table data]
-  (if (key-is-not-present? truth-table data)
-    (join-counters truth-table {:key (into [] (map data-to-table-key data)) :value 1})
-    (map (get-new-truth-table [:key (into [] (map data-to-table-key data))]) truth-table))
+(defn inc-counter-value [truth-table parameters]
+  (if (key-is-not-present? truth-table parameters)
+    (join-counters truth-table {:key parameters :value 1})
+    (map (get-new-truth-table [:key parameters]) truth-table))
   )
 
 (defn transform-rule [rule truth-table]  {:type (:type rule)
@@ -39,7 +35,7 @@
 (defn get-new-rule [data past-data]
   (fn[rule]
     (if (pass-condition? (:condition rule) data past-data)
-      (transform-rule rule (inc-counter-value (:truth-table rule) data))
+      (transform-rule rule (inc-counter-value (:truth-table rule) (:params rule)))
       rule)
   )
 )

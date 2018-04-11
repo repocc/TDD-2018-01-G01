@@ -1,6 +1,7 @@
 (ns query-processor-test
   (:require [clojure.test :refer :all]
-            [query-processor :refer :all]))
+            [query-processor :refer :all]
+            [data-processor :refer :all]))
 
 
 (def state {:rules '({:type "counter", :name "email-count", :params [], :condition true,
@@ -10,6 +11,27 @@
                           {:type "counter", :name "spam-important-table", :params [(current "spam") (current "important")],
                            :condition true, :truth-table ({:key [true true], :value 55}, {:key [true false], :value 66})})
             :past-data []})
+
+
+
+(def rules '((define-counter "email-count" []
+                             true)
+             (define-counter "spam-count" []
+                             (current "spam"))
+             (define-signal {"spam-fraction" (/ (counter-value "spam-count" [])
+                                                (counter-value "email-count" []))}
+                            true)
+             (define-counter "spam-important-table" [(current "spam")
+                                                     (current "important")]
+                             true)))
+
+
+(deftest test-empty-counters
+ (testing "Should return the counter row"
+          (is (= 0
+                 (query-counter (initialize-processor rules) "spam-count" [])))
+          )
+ )
 
 
 (deftest get-counter-name
@@ -45,10 +67,10 @@
 (deftest try-to-get-counter-value
   (testing "Should return a nil value because the counter name doesn't exist or counter-args don't match"
     (is (= true
-           (nil? (get-value (get-counter "not-spam" state) []))))
+           (nil? (maybe-get-value (get-counter "not-spam" state) []))))
     (is (= true
-           (nil? (get-value (get-counter "spam-important-table" state) []))))
+           (nil? (maybe-get-value (get-counter "spam-important-table" state) []))))
     (is (= true
-           (nil? (get-value (get-counter "spam-count" state) [true true]))))
+           (nil? (maybe-get-value (get-counter "spam-count" state) [true true]))))
     )
   )
