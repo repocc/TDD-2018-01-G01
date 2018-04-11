@@ -1,8 +1,10 @@
 (ns counter-increaser (:use [clojure.string :as string]
                       :require [condition-processor :refer :all]))
 
+(defn get-from-data [data param] (get data (second param)) )
+
 (defn compare-args? [keyTT args]
-      (= (compare keyTT args) 0))
+      (= keyTT args)  )
 
 (defn filter-by-key [truth-table parameters]
   (filter #(compare-args? (:key %) parameters) truth-table)
@@ -21,10 +23,10 @@
 )
 
 ;;accede to truth table value, increment it if key is in map, or create a new key if it isn't
-(defn inc-counter-value [truth-table parameters]
-  (if (key-is-not-present? truth-table parameters)
-    (join-counters truth-table {:key parameters :value 1})
-    (map (get-new-truth-table [:key parameters]) truth-table))
+(defn inc-counter-value [truth-table parameters data]
+  (if (key-is-not-present? truth-table (map #(get-from-data data %) parameters))
+    (join-counters truth-table {:key (map #(get-from-data data %) parameters) :value 1})
+    (map (get-new-truth-table [:key (map #(get-from-data data %) parameters)]) truth-table))
   )
 
 (defn transform-rule [rule truth-table]  {:type (:type rule)
@@ -37,7 +39,7 @@
 (defn get-new-rule [data past-data]
   (fn[rule]
     (if (pass-condition? (:condition rule) data past-data)
-      (transform-rule rule (inc-counter-value (:truth-table rule) (:params rule)))
+      (transform-rule rule (inc-counter-value (:truth-table rule) (:params rule) data))
       rule)
   )
 )

@@ -35,13 +35,13 @@
 (deftest inc-counter-value-key-present-test
   (testing "Inc counter value when key is present"
     (is (= 2
-      (:value (nth (inc-counter-value truth-table parameters1) 0)))))
+      (:value (nth (inc-counter-value truth-table parameters1 {}) 0)))))
 )
 
 (deftest inc-counter-value-key-not-present-test
   (testing "Inc counter value when key is not present"
     (is (= [false, false]
-      (:key (nth (inc-counter-value truth-table parameters2) 2)))))
+      (:key (nth (inc-counter-value truth-table parameters2 {}) 2)))))
 )
 
 (deftest process-counter-test
