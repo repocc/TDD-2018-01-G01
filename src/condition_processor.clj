@@ -2,7 +2,7 @@
                               [dsl-condition-applier]
                               [query-processor]))
 
-;; TODO this should be a defmulti and define counter-value in process-signal module
+;; TODO move this to dsl condition applier
 (defn current? [value] (= (nth value 0) 'current ))
 (defn past? [value] (= (nth value 0) 'past ))
 (defn counter-value? [value] (= (nth value 0) 'counter-value ))

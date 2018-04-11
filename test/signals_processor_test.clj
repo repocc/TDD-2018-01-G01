@@ -16,6 +16,10 @@
                       :name "spam-fraction",
                       :operation (/ (counter-value "spam-count" []) (counter-value "email-count" []))
                       :condition (true)}
+                     {:type "signal",
+                      :name "repeated",
+                      :operation (current "value")
+                      :condition (= (current "value") (past "value"))}
                      )
             :past-data [{}]})
 
@@ -24,19 +28,24 @@
              :operation (/ (counter-value "spam-count" []) (counter-value "email-count" []))
              :condition (true)})
 
-(def data1 {"spam" true, "receiver" "jorge", "subject" "holo"})
-(def data2 {"spam" "culkin", "receiver" "ramona", "subject" "holo"})
-(def data3 {"spam" "ramona", "receiver" "scott", "subject" "carta importante"})
+(def signal-repeated '{:type "signal",
+              :name "repeated",
+              :operation (current "value")
+              :condition (= (current "value") (past "value"))})
 
-(def data-match {"sender" "ramona", "receiver" "scott", "subject" "holo"})
+(def data1 {"spam" true, "receiver" "jorge", "subject" "holo", "value" "ernesto"})
+(def data2 {"spam" "culkin", "receiver" "ramona", "subject" "holo", "value" "ernesto"})
+(def data3 {"spam" "ramona", "receiver" "scott", "subject" "carta importante", "value" "juan"})
+
+(def data-match {"sender" "ramona", "receiver" "scott", "subject" "holo", "value" "ernesto"})
 
 (def past-data [data1 data2 data3])
 
 
 (deftest process-signals-test
   (testing "Should return signal data"
-           (is (= 5
-                  (process-signal signal data-match past-data state)))
+           (is (= "ernesto"
+                  (process-signal signal-repeated data-match past-data state)))
            ))
 
 
