@@ -27,19 +27,19 @@
 (deftest pass-condition-test
   (testing "Should pass condition given data"
     (is (= false
-           (eval-condition condition1 data1 data2)))
+           (eval-condition condition1 data1 data2 nil)))
     (is (= true
-           (eval-condition condition1 data1 data4)))
+           (eval-condition condition1 data1 data4 nil)))
     (is (= false
-            (eval-condition condition1 data1 data2)))
+            (eval-condition condition1 data1 data2 nil)))
     (is (= false
-            (eval-condition condition1 data1 data2)))
+            (eval-condition condition1 data1 data2 nil)))
     (is (= true
-             (eval-condition true-condition data1 data2)))
+             (eval-condition true-condition data1 data2 nil)))
     (is (= false
-            (eval-condition condition5 dataWithNumbers2 dataWithNumbers1)))
+            (eval-condition condition5 dataWithNumbers2 dataWithNumbers1 nil)))
     (is (= true
-            (eval-condition condition5 dataWithNumbers1 dataWithNumbers2)))))
+            (eval-condition condition5 dataWithNumbers1 dataWithNumbers2 nil)))))
 
 
 

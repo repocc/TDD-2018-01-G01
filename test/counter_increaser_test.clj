@@ -12,7 +12,6 @@
 (def parameters3 [false, true])
 (def parameters4 [])
 
-(def rule {:type "counter" :name "spam-important-table" :params [] :condition true :truth-table truth-table})
 
 (def past-data ["spam" true, "spam" true])
 
@@ -37,20 +36,20 @@
   (testing "Inc counter value when key is present"
     (is (= 2
       (:value (nth (inc-counter-value truth-table parameters1) 0))))
-      (is (= 2
-        (:value (nth (inc-counter-value truth-table parameters4) 2)))))
+    (is (= 2
+      (:value (nth (inc-counter-value truth-table parameters4) 2)))))
 )
 
 (deftest inc-counter-value-key-not-present-test
   (testing "Inc counter value when key is not present"
     (is (= [false, false]
-      (:key (nth (inc-counter-value truth-table parameters2) 2)))))
+      (:key (nth (inc-counter-value truth-table parameters2) 3)))))
 )
 
 (deftest process-counter-test
   (testing "Processing counter"
     (is (= []
-      (:key (:truth-table (nth (:rules (process-counter state parameters2)) 0)))))
+      (:key (:truth-table (nth (:rules (process-counter state {"spam" false, "important" false})) 0)))))
     (is (= {}
-      (:truth-table (nth (:rules (process-counter state parameters2)) 1)))))
+      (:truth-table (nth (:rules (process-counter state {"spam" false, "important" false})) 1)))))
   )
