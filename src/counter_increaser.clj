@@ -1,5 +1,6 @@
 (ns counter-increaser (:use [clojure.string :as string]
-                      :require [condition-processor :refer :all]))
+                      :require [condition-processor :refer :all]
+                              [state-initializer :refer :all]))
 
 (defn get-from-data [data param] (get data (second param)) )
 
@@ -12,15 +13,16 @@
 
 (defn key-is-not-present? [truth-table parameters]
   (empty? (filter-by-key truth-table parameters))
-  )
+)
 
 ;;concat counters
 (defn join-counters [list1 list2] (conj list1 list2))
 
+
 (defn get-new-truth-table [[key-data data]]
   (fn[pos]
-    (if (= data (key-data pos)) (update pos :value inc) pos))
-)
+      (if (= data (key-data pos)) (update pos :value inc) pos))
+  )
 
 ;;accede to truth table value, increment it if key is in map, or create a new key if it isn't
 (defn inc-counter-value [truth-table parameters data]
@@ -37,6 +39,7 @@
                                          })
 (defn is-counter-rule? [rule]
       (= (:type rule) "counter"))
+
 
 (defn get-new-rule [data past-data]
   (fn[rule]
