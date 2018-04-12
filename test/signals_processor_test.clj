@@ -44,9 +44,9 @@
 
 (deftest process-signals-test
   (testing "Should return signal data"
-           (is (= "ernesto"
+           (is (= '{"repeated" "ernesto"}
                   (process-signal signal-repeated data-match past-data state)))
-                  (is (= 5
+                  (is (= '{"spam-fraction" 5}
                   (process-signal signal data-match past-data state)))
            ))
 
