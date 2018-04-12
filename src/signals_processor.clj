@@ -10,10 +10,14 @@
 
 (def is-signal? (fn [rule] (=(:type rule) "signal")))
 
-(defn merge-if-not-nil [& maps]
-    (merge (filter #(not (nil? (vals %))) maps)))
+(defn try-process-signal[signal new-data state]
+  (try(process-signal signal new-data (:past-data state) state)
+    (catch Exception e)))
+
+(defn conj-not-empty [& maps]
+    (conj (filter #(not (empty? (vals %))) maps)))
 
 (defn process-signals [state new-data]
-  (conj (map #(process-signal % new-data (:past-data state) state) (filter is-signal? (:rules state)))))
+  (remove nil? (conj (map #(try-process-signal % new-data state) (filter is-signal? (:rules state))))))
 
 

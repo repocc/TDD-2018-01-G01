@@ -12,7 +12,7 @@
                                })
 
 (defn rule-to-signal [rule] {:type "signal"
-                             :name (keys (second rule))
+                             :name (first (keys (second rule)))
                              :operation (first (vals (nth rule 1)))
                              :condition (nth rule 2)
                              })
