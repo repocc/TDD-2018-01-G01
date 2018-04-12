@@ -2,34 +2,33 @@
                       :require [condition-processor :refer :all]
                               [state-initializer :refer :all]))
 
+(defn get-from-data [data param] (get data (second param)) )
+
+(defn compare-args? [keyTT args]
+      (= keyTT args)  )
 
 (defn filter-by-key [truth-table parameters]
-  (filter #(= (:key %) []) truth-table)
+  (filter #(compare-args? (:key %) parameters) truth-table)
   )
 
 (defn key-is-not-present? [truth-table parameters]
-    (and (empty? (filter-by-key truth-table parameters)) (empty? truth-table))
-  )
+  (empty? (filter-by-key truth-table parameters))
+)
 
 ;;concat counters
 (defn join-counters [list1 list2] (conj list1 list2))
 
-(defn inc-value [pos]
-  {
-    :key (:key pos)
-    :value (inc (:value pos))
-  })
 
-(defn get-new-truth-table [data]
+(defn get-new-truth-table [[key-data data]]
   (fn[pos]
-    (if (= data (:key pos)) (inc-value pos) pos))
-)
+      (if (= data (key-data pos)) (update pos :value inc) pos))
+  )
 
 ;;accede to truth table value, increment it if key is in map, or create a new key if it isn't
-(defn inc-counter-value [truth-table parameters]
-  (if (key-is-not-present? truth-table parameters)
-    (join-counters truth-table {:key parameters :value 1})
-    (map (get-new-truth-table parameters) truth-table))
+(defn inc-counter-value [truth-table parameters data]
+  (if (key-is-not-present? truth-table (map #(get-from-data data %) parameters))
+    (join-counters truth-table {:key (map #(get-from-data data %) parameters) :value 1})
+    (map (get-new-truth-table [:key (map #(get-from-data data %) parameters)]) truth-table))
   )
 
 (defn transform-rule [rule truth-table]  {:type (:type rule)
@@ -39,14 +38,11 @@
                                          :truth-table truth-table
                                          })
 
-(defn is-counter? [rule]
-  (= "counter" (:type rule))
-  )
 
 (defn get-new-rule [data past-data]
   (fn[rule]
-    (if (and (pass-condition? (:condition rule) data past-data) (is-counter? rule))
-      (transform-rule rule (inc-counter-value (:truth-table rule) (:params rule)))
+    (if (pass-condition? (:condition rule) data past-data)
+      (transform-rule rule (inc-counter-value (:truth-table rule) (:params rule) data))
       rule)
   )
 )

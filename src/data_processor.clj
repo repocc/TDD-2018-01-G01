@@ -19,6 +19,7 @@
 
 
 (defn process-data [state new-data]
+      (do (print "NEW STATE: ----- \n" state"\n\n" ))
   [(process-state state new-data) [(process-signals state new-data)]])
 
 (defn query-counter [state counter-name counter-args]

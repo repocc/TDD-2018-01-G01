@@ -8,8 +8,7 @@
                                :name (nth rule 1)
                                :params (nth rule 2)
                                :condition (nth rule 3)
-                               :truth-table {
-                                            }
+                               :truth-table []
                                })
 
 (defn rule-to-signal [rule] {:type "signal"
