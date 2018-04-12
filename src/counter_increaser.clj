@@ -37,11 +37,13 @@
                                          :condition (:condition rule)
                                          :truth-table truth-table
                                          })
+(defn is-counter-rule? [rule]
+      (= (:type rule) "counter"))
 
 
 (defn get-new-rule [data past-data]
   (fn[rule]
-    (if (pass-condition? (:condition rule) data past-data)
+    (if (and (pass-condition? (:condition rule) data past-data) (is-counter-rule? rule))
       (transform-rule rule (inc-counter-value (:truth-table rule) (:params rule) data))
       rule)
   )

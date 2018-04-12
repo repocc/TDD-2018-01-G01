@@ -1,14 +1,19 @@
 (ns signals-processor
   (:require [condition-processor :refer :all]))
 
-(defn is-signal? [rule]
-  (=(:type rule) "signal"))
+(defn get-operation-result [operation data past-data state]
+  (condition-processor/eval-condition operation data past-data state))
 
-(defn process-signal [ signal data past-data state]
+(defn process-signal [signal data past-data state]
   (if (pass-condition? (get signal :condition) data past-data)
-    (condition-processor/eval-condition (get signal :operation) data past-data state)))
+    {(:name signal) (get-operation-result (:operation signal) data past-data state)}))
+
+(def is-signal? (fn [rule] (=(:type rule) "signal")))
+
+(defn merge-if-not-nil [& maps]
+    (merge (filter #(not (nil? (vals %))) maps)))
 
 (defn process-signals [state new-data]
-  (map #(process-signal % new-data (get :past-data state) state) (filter #(is-signal? %) (get state :rules))))
+  (conj (map #(process-signal % new-data (:past-data state) state) (filter is-signal? (:rules state)))))
 
 
