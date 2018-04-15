@@ -1,9 +1,11 @@
 (ns data-processor (:use [state-initializer :refer :all]
                          [query-processor :refer :all]
                          [signals-processor :refer :all]
-                         [counter-increaser :refer :all]))
+                         [counter-increaser :refer :all]
+                         [data-saver :refer :all]))
 
-(defn should-save-data? [state new-data] true)
+(defn should-save-data? [state new-data]
+  (any? true? (map #(useful-data-for-rule? new-data (:condition %)) (:rules state))))
 
 (defn transform-state [old-state with-past-data]
   {:rules (:rules old-state)
