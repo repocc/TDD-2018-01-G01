@@ -1,5 +1,8 @@
 (ns data-saver)
 
+(defn boolean? [x]
+  (instance? Boolean x))
+
 ;;returns true if value is like (past "something")
 (defn past? [value]
   (and (> (count value) 1) (= (nth value 0) 'past) ))
@@ -7,7 +10,8 @@
 ;;returns a list with all the values of past conditions
 (defn get-past-conditions [rule]
   (cond
-    (symbol? rule) true
+    (symbol? rule) rule
+    (boolean? rule) rule
     (past? rule) (list (nth rule 1))
     (list? rule) (conj (map #(get-past-conditions %) (rest rule) ))))
 

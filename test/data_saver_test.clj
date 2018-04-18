@@ -16,6 +16,8 @@
 
 (def condition3 '(or (= (current "sender") (past "receiver")) (includes? (past "subject") (current "subject"))))
 
+(def condition '(true))
+
 (deftest test-useful-data1
   (testing "Should return false every time"
     (is (= false
@@ -25,6 +27,8 @@
     )
     (is (= false
          (useful-data-for-rule? data1 condition3)))
+    (is (= false
+           (useful-data-for-rule? data1 condition)))
   )
 
 (deftest test-useful-data2

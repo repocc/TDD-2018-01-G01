@@ -14,7 +14,7 @@
 (defn process-state [state new-data]
   (if(should-save-data? state new-data)
     (transform-state (process-counter state new-data) (conj (get state :past-data) new-data))
-    state))
+    (transform-state (process-counter state new-data) (:past-data state))))
 
 (defn initialize-processor [rules]
   (get-state rules))

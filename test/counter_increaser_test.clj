@@ -37,17 +37,17 @@
 (deftest inc-counter-value-key-present-test
   (testing "Inc counter value when key is present"
     (is (= [true true]
-      (:key (nth (inc-counter-value truth-table parameters5 {"spam" true, "important" true}) 0))))
+      (:key (nth (inc-counter-value truth-table parameters5 {"spam" true, "important" true} 1) 0))))
     (is (= 2
-      (:value (nth (inc-counter-value truth-table parameters5 {"spam" true, "important" true}) 0)))))
+      (:value (nth (inc-counter-value truth-table parameters5 {"spam" true, "important" true} 1) 0)))))
 )
 
 (deftest inc-counter-value-key-not-present-test
   (testing "Inc counter value when key is not present"
     (is (= [false, true]
-      (:key (nth (inc-counter-value truth-table parameters5 {"spam" false, "important" true}) 3))))
+      (:key (nth (inc-counter-value truth-table parameters5 {"spam" false, "important" true}1) 3))))
     (is (= 1
-      (:value (nth (inc-counter-value truth-table parameters5 {"spam" false, "important" true}) 3))))
+      (:value (nth (inc-counter-value truth-table parameters5 {"spam" false, "important" true} 1) 3))))
       )
 )
 
