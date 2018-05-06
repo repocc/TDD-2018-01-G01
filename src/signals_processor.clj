@@ -6,16 +6,13 @@
 
 (defn process-signal [signal data past-data state]
   (if (pass-condition? (get signal :condition) data past-data)
-    {(:name signal) (get-operation-result (:operation signal) data past-data state)}))
+    {(:name signal) (get-operation-result (:operation signal) data (get-selected-past-data (get signal :condition) data past-data) state)}))
 
 (def is-signal? (fn [rule] (=(:type rule) "signal")))
 
 (defn try-process-signal[signal new-data state]
   (try(process-signal signal new-data (:past-data state) state)
     (catch Exception e)))
-
-(defn conj-not-empty [& maps]
-    (conj (filter #(not (empty? (vals %))) maps)))
 
 (defn process-signals [state new-data]
   (remove nil? (conj (map #(try-process-signal % new-data state) (filter is-signal? (:rules state))))))

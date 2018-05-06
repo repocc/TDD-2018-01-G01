@@ -26,10 +26,8 @@
       (if (= data (key-data pos)) (update pos :value (inc-n step)) pos))
   )
 
-
 (defn get-step [step data past-data]
-      (condition-processor/eval-condition step data past-data nil))
-
+      (condition-processor/eval-condition step data (get-selected-past-data step data past-data) nil))
 
 ;;accede to truth table value, increment it if key is in map, or create a new key if it isn't
 (defn inc-counter-value [truth-table parameters data step]

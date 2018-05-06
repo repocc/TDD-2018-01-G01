@@ -41,7 +41,17 @@
     (is (= true
             (eval-condition condition5 dataWithNumbers1 dataWithNumbers2 nil)))))
 
-
+(deftest get-selected-past-data-test
+         (testing "Should pass condition given data"
+                  (is (= nil
+                         (get-selected-past-data condition1 data-actual past-data)))
+                  (is (= {"sender" "culkin", "receiver" "ramona", "subject" "holo"}
+                         (get-selected-past-data condition4 data-match past-data)))
+                  (is (= {"sender" "ramona", "receiver" "jorge", "subject" "holo"}
+                         (get-selected-past-data true-condition data-match past-data)))
+                  (is (= {}
+                         (get-selected-past-data true-condition data-match [{}])))
+                  ))
 
 (deftest pass-condition-test-all
          (testing "Should pass condition given data"
