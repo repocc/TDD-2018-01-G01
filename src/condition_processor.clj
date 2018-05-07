@@ -32,6 +32,9 @@
     (eval-condition condition data past-data nil)
     (catch Exception e false)))
 
+(defn get-selected-past-data [condition data past-data]
+  (first (filter #(maybe-pass? condition data %) past-data)))
+
 ;; return true if the condition is met
 ;; data is the current data being processed
 ;; past-data is collection of data previously processed
