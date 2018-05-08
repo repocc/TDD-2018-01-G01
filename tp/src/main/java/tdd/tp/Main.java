@@ -1,5 +1,6 @@
 package main.java.tdd.tp;
 
+import app.RulesValidatorApp;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -7,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 
 @ComponentScan
 public class Main implements WebMvcConfigurer {
@@ -24,5 +26,7 @@ public class Main implements WebMvcConfigurer {
         server.setHandler(servletContextHandler);
         server.start();
         server.join();
+
+        RulesValidatorApp rt = RulesValidatorApp.getInstance();
     }
 }
