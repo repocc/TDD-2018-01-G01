@@ -27,6 +27,5 @@ public class Main implements WebMvcConfigurer {
         server.start();
         server.join();
 
-        RulesValidatorApp rt = RulesValidatorApp.getInstance();
     }
 }

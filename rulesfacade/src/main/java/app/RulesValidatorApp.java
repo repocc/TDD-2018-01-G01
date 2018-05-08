@@ -27,8 +27,8 @@ public class RulesValidatorApp {
         //todo
     }
 
-    public void processData(String newData) {
-        //todo
+    public String processData(String key, String value) {
+        return key;
     }
 
     public void getQueryCounter(String counterName, String[] params, boolean[] values) {
