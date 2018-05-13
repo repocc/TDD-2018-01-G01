@@ -1,0 +1,15 @@
+tp1-rule-validator/target
+tp1-rule-validator/classes
+tp1-rule-validator/checkouts
+tp1-rule-validator/pom.xml.asc
+tp1-rule-validator/*.jar
+*.class
+tp1-rule-validator/.lein-*
+tp1-rule-validator/.nrepl-port
+tp1-rule-validator/.hgignore
+tp1-rule-validator/.hg/
+tp1-rule-validator/.idea/
+tp1-rule-validator/.lein-failures
+rulesfacade/target/
+rulesfacade/.classpath
+rulesfacade/.project
