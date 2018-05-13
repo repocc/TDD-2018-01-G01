@@ -8,7 +8,7 @@ import main.java.tdd.tp.inputdto.Data;
 @Controller
 public class DataController {
 	
-	@RequestMapping(value = "/process-data", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/process-data", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String getResponse(@RequestBody Data newData) {
 		 RulesValidatorApp rt = RulesValidatorApp.getInstance();
