@@ -13,3 +13,4 @@ tp1-rule-validator/.lein-failures
 tp1-rules-facade/target/
 tp1-rules-facade/.classpath
 tp1-rules-facade/.project
+.idea
