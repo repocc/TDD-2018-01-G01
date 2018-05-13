@@ -29,8 +29,8 @@ public class RulesValidatorApp {
         //todo
     }
 
-    public void getState(){
-        //todo
+    public String getState(){
+        return ("Hola");
     }
 
     public String processData(Map<String, String> newData) {
