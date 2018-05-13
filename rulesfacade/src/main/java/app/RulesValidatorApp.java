@@ -1,5 +1,7 @@
 package app;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,8 +33,8 @@ public class RulesValidatorApp {
         //todo
     }
 
-    public String processData(String key, String value) {
-        return key;
+    public String processData(Map<String, String> newData) {
+        return newData.get("important");
     }
 
     public void getQueryCounter(String counterName, String[] params, boolean[] values) {
