@@ -17,4 +17,6 @@ tp1-rules-facade/.project
 target
 tp/tp.iml
 tp1-rules-facade/rules-facade.iml
+tp/.project
+tp/.classpath
 
