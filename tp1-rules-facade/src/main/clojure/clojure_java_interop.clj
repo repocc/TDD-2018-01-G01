@@ -1,4 +1,5 @@
-(ns clojure-java-interop (:use [data-processor :refer :all])
+(ns clojure-java-interop (:require [data-processor :refer :all]
+                                   [clojure.data.json :as json])
                          (:gen-class))
 
 (def rules '((define-counter "email-count" []
@@ -13,4 +14,7 @@
                               true)))
 
 (defn -initialize []
-      (str (initialize-processor rules)))
+      (json/write-str (initialize-processor rules)))
+
+(defn -process-data [state new-data]
+  (str (process-data state new-data)))
