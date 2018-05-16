@@ -15,3 +15,6 @@ tp1-rules-facade/.classpath
 tp1-rules-facade/.project
 .idea
 target
+tp/tp.iml
+tp1-rules-facade/rules-facade.iml
+

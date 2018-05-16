@@ -2,6 +2,7 @@ package main.java.tdd.tp.controller;
 
 import java.util.Map;
 
+import clojure.lang.PersistentArrayMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import app.RulesValidatorApp;

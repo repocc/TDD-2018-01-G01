@@ -1,4 +1,4 @@
-(ns dsl-condition-applier (:require [clojure.string :as string]))
+(ns dsl-condition-applier (:use [clojure.string :as string]))
 
 (defn apply-operation [identifier args]
   (cond

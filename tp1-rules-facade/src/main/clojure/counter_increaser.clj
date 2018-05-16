@@ -1,6 +1,6 @@
 (ns counter-increaser (:use [clojure.string :as string]
-                      :require [condition-processor :refer :all]
-                              [state-initializer :refer :all]))
+                            [condition-processor :refer :all]
+                            [state-initializer :refer :all]))
 
 (defn get-from-data [data param] (get data (second param)) )
 
