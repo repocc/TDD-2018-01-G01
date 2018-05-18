@@ -22,7 +22,7 @@ public class RulesValidatorApp {
         }
     }
 
-    public String initializeState() {
+    private String initializeState() {
         this.state = ClojureInterop.initializeState();
         return this.state;
     }
@@ -35,14 +35,9 @@ public class RulesValidatorApp {
         return state;
     }
 
-    public String processData(String newData) {
+    public synchronized String processData(String newData) {
         this.state = ClojureInterop.processData(this.state, newData);
         return this.state;
     }
-
-    public void getQueryCounter(String counterName, String[] params, boolean[] values) {
-        //todo
-    }
-
 
 }
