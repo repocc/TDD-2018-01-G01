@@ -6,17 +6,23 @@ import clojure.lang.PersistentArrayMap;
 
 public class ClojureInterop {
 
-    public static String initializeState() {
-
+    private static IFn getClojureFunction(String name){
+        String clojurePackage = "clojure-java-interop";
         IFn require = Clojure.var("clojure.core", "require");
-        require.invoke(Clojure.read("clojure-java-interop"));
+        require.invoke(Clojure.read(clojurePackage));
+        IFn function  = Clojure.var(clojurePackage, name);
+        return function;
+    }
 
-        IFn initialize  = Clojure.var("clojure-java-interop", "-initialize");
+    public static String initializeState() {
+        IFn initialize = getClojureFunction("-initialize");
+        return (String) initialize.invoke();
+    }
 
-        String initializedStateMap = (String) initialize.invoke();
-
-        return initializedStateMap;
-
+    public static String processData(String state, String data) {
+        IFn processData = getClojureFunction("-process-data");
+        String newState = (String) processData.invoke(state, data);
+        return newState;
     }
 
 

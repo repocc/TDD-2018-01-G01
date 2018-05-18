@@ -1,10 +1,7 @@
 package app;
 
 import clojure.interop.ClojureInterop;
-import clojure.lang.PersistentArrayMap;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service
 public class RulesValidatorApp {
@@ -38,8 +35,9 @@ public class RulesValidatorApp {
         return state;
     }
 
-    public String processData(Map<String, String> newData) {
-        return newData.get("important");
+    public String processData(String newData) {
+        this.state = ClojureInterop.processData(this.state, newData);
+        return this.state;
     }
 
     public void getQueryCounter(String counterName, String[] params, boolean[] values) {

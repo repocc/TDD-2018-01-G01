@@ -32,7 +32,6 @@
 ;;accede to truth table value, increment it if key is in map, or create a new key if it isn't
 (defn inc-counter-value [truth-table parameters data step]
   (if (key-is-not-present? truth-table (map #(get-from-data data %) parameters))
-    ;; TODO should have the past data!!
     (join-counters truth-table {:key (map #(get-from-data data %) parameters) :value (get-step step data nil)})
     (map (get-new-truth-table [:key (map #(get-from-data data %) parameters)] step) truth-table))
   )

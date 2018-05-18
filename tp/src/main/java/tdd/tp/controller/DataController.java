@@ -14,7 +14,7 @@ public class DataController {
 	
 	@RequestMapping(value = "/process-data", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public String getResponse(@RequestBody Map<String, String> newData) {
+	public String getResponse(@RequestBody String newData) {
 		 rt = RulesValidatorApp.getInstance();
 		 return rt.processData(newData);
 	}
