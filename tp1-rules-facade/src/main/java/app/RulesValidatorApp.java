@@ -27,8 +27,9 @@ public class RulesValidatorApp {
         return this.state;
     }
 
-    public void addRule(){
-        //todo
+    public String addRules(String rules){
+        this.state = ClojureInterop.addRules(this.state, rules);
+        return this.state;
     }
 
     public String getState(){

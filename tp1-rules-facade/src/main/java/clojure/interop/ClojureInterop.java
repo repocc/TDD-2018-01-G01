@@ -25,6 +25,12 @@ public class ClojureInterop {
         return newState;
     }
 
+    public static String addRules(String state, String rule) {
+        IFn processData = getClojureFunction("-add-rule");
+        String newState = (String) processData.invoke(state, rule);
+        return newState;
+    }
+
 
 
 }

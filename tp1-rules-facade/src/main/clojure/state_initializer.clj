@@ -1,8 +1,8 @@
 (ns state-initializer  (:require [condition-processor :refer :all]))
 
 
-(defn counter? [rule] (= (nth rule 0) 'define-counter))
-(defn signal? [rule] (= (nth rule 0) 'define-signal))
+(defn counter? [rule] (= (symbol (nth rule 0))  'define-counter))
+(defn signal? [rule] (= (symbol (nth rule 0)) 'define-signal))
 
 (defn rule-to-normal-counter [rule] {:type "counter"
                                      :name (nth rule 1)

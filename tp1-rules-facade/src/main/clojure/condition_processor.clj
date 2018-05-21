@@ -3,9 +3,9 @@
                               [query-processor]))
 
 ;; TODO move this to dsl condition applier
-(defn current? [value] (= (nth value 0) 'current ))
-(defn past? [value] (= (nth value 0) 'past ))
-(defn counter-value? [value] (= (nth value 0) 'counter-value ))
+(defn current? [value] (= (nth value 0) 'current))
+(defn past? [value] (= (nth value 0) 'past))
+(defn counter-value? [value] (= (nth value 0) 'counter-value))
 
 (defmulti eval-condition (fn [condition data past-data state]
                            [(type condition)]))
