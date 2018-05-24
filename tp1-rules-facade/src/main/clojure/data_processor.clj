@@ -27,6 +27,6 @@
   (get-query-counter-value state counter-name counter-args))
 
 (defn add-rule [state new-rules]
-  {:rules (concat (get state :rules) (:rules (initialize-processor (seq new-rules))))
-   :past-data (get state :past-data )})
+  {:rules (concat (:rules state) (:rules (initialize-processor new-rules)))
+   :past-data (:past-data state)})
 

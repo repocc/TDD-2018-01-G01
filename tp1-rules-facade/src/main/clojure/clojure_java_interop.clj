@@ -19,5 +19,5 @@
   )
 
 (defn -add-rule [state new-rules]
-  (json/write-str (add-rule state (json/read-str new-rules) )))
+  (json/write-str (add-rule (walk/keywordize-keys (json/read-str state)) (json/read-str new-rules) )))
 

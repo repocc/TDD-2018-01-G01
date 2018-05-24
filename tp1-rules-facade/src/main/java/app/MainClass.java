@@ -16,9 +16,11 @@ public class MainClass {
         rules.processData(data2);
 
         String rule1 = "[[\"define-counter\",\"spam-count\",[],[\"current\",\"spam\"]]]";
-        String rule2 = "[\"define-signal\",{\"spam-fraction\":[\"\\/\",[\"counter-value\",\"spam-count\",[]],[\"counter-value\",\"email-count\",[]]]},true]";
+        String rule2 = "[[\"define-signal\",{\"spam-fraction\":[\"\\/\",[\"counter-value\",\"spam-count\",[]],[\"counter-value\",\"email-count\",[]]]},true]]";
 
         rules.addRules(rule1);
+
+        System.out.println(state);
 
         System.out.println("ñam");
 
