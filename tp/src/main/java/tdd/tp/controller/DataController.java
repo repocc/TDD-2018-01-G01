@@ -16,6 +16,7 @@ public class DataController {
 	@ResponseBody
 	public String getResponse(@RequestBody String newData) {
 		 rt = RulesValidatorApp.getInstance();
+		System.out.println(newData);
 		 return rt.processData(newData);
 	}
 

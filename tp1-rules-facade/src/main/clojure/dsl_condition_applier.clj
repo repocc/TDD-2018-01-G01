@@ -2,30 +2,30 @@
 
 (defn apply-operation [identifier args]
   (cond
-    (= identifier '=) (apply = args)
-    (= identifier '!=) (apply not= args)
+    (= (symbol (str identifier)) '=) (apply = args)
+    (= (symbol (str identifier)) '!=) (apply not= args)
 
-    (= identifier 'and) (every? identity args)
-    (= identifier 'or) (not (nil?(some identity args)))
-    (= identifier 'not) (not (every? identity args))
+    (= (symbol (str identifier)) 'and) (every? identity args)
+    (= (symbol (str identifier)) 'or) (not (nil?(some identity args)))
+    (= (symbol (str identifier)) 'not) (not (every? identity args))
 
-    (= identifier '+) (reduce + args)
-    (= identifier '-) (reduce - args)
-    (= identifier '*) (reduce * args)
-    (= identifier '/) (reduce / args)
-    (= identifier 'mod) (reduce mod args)
-    (= identifier '*) (reduce - args)
+    (= (symbol (str identifier)) '+) (reduce + args)
+    (= (symbol (str identifier)) '-) (reduce - args)
+    (= (symbol (str identifier)) '*) (reduce * args)
+    (= (symbol (str identifier)) '/) (reduce / args)
+    (= (symbol (str identifier)) 'mod) (reduce mod args)
+    (= (symbol (str identifier)) '*) (reduce - args)
 
-    (= identifier '<) (apply < args)
-    (= identifier '>) (apply > args)
-    (= identifier '<=) (apply <= args)
-    (= identifier '>=) (apply >= args)
+    (= (symbol (str identifier)) '<) (apply < args)
+    (= (symbol (str identifier)) '>) (apply > args)
+    (= (symbol (str identifier)) '<=) (apply <= args)
+    (= (symbol (str identifier)) '>=) (apply >= args)
 
-    (= identifier '!=) (apply not= args)
-    (= identifier 'includes?) (apply string/includes? args)
-    (= identifier 'starts-with?) (apply string/starts-with? args)
-    (= identifier 'concat) (apply str args)
-    (= identifier 'ends-with?) (apply string/ends-with? args)
-    (= identifier true) true
-    (= identifier false) false))
+    (= (symbol (str identifier)) '!=) (apply not= args)
+    (= (symbol (str identifier)) 'includes?) (apply string/includes? args)
+    (= (symbol (str identifier)) 'starts-with?) (apply string/starts-with? args)
+    (= (symbol (str identifier)) 'concat) (apply str args)
+    (= (symbol (str identifier)) 'ends-with?) (apply string/ends-with? args)
+    (= (str identifier)  "true" ) true
+    (= (str identifier) "false" ) false))
 

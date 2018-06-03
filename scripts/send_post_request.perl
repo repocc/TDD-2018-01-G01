@@ -6,8 +6,8 @@ use JSON qw( decode_json );
 use LWP::UserAgent;
 
 my $data0 = '{ "name": "Dan", "address": "NY" }';
-my $data1 = '{ "spam": true, "important": true }';
-my $data2 = '{ "name": "Dan", "address": "NY" }';
+my $data1 = '{ "spam":true, "important": true }';
+my $data2 = '{ "spam": false, "important": true, "name": "Dan", "address": "NY" }';
 my $data3 = '{ "name": "Dan", "address": "NY" }';
 my $data4 = '{ "name": "Dan", "address": "NY" }';
 
@@ -39,6 +39,7 @@ sub sendRequest {
 
 	if ($resp->is_success) {
 	    my $message = $resp->decoded_content;
+	    print "Send data: $post_data\n";
 	    print "Received reply: $message\n";
 	}
 	else {

@@ -11,7 +11,8 @@
                true)
              (define-counter "spam-important-table" [(current "spam")
                                                      (current "important")]
-               true)))
+               true)
+              (define-counter "string-test" [] ("=" (current "name") "Dan"))))
 
 (defn process-data-dropping-signals [state new-data]
   (first (process-data state new-data)))
@@ -50,7 +51,14 @@
             st2 (process-data-dropping-signals st1 {"spam" false})
             st3 (process-data-dropping-signals st2 {"spam" true})]
         (is (= 2
-               (query-counter st3 "spam-count" [])))))))
+               (query-counter st3 "spam-count" [])))))
+    (testing "when considered field varies"
+      (let [st0 (initialize-processor rules)
+            st1 (process-data-dropping-signals st0 { "name" "Dan", "address" "NY" })
+            st2 (process-data-dropping-signals st1 { "name" "Sam", "address" "NY" })
+            st3 (process-data-dropping-signals st2 { "name" "Dan", "address" "NY" })]
+        (is (= 2
+               (query-counter st3 "string-test" [])))))))
 
 (deftest contingency-table-counter-test
   (let [st0 (initialize-processor rules)
