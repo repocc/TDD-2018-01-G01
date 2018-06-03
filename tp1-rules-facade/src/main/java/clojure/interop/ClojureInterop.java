@@ -2,7 +2,6 @@ package clojure.interop;
 
 import clojure.java.api.Clojure;
 import clojure.lang.IFn;
-import clojure.lang.PersistentArrayMap;
 
 public class ClojureInterop {
 
@@ -19,10 +18,11 @@ public class ClojureInterop {
         return (String) initialize.invoke();
     }
 
-    public static String processData(String state, String data) {
+    public static StateAndSignalsJson processData(String state, String data) {
         IFn processData = getClojureFunction("-process-data");
-        String newState = (String) processData.invoke(state, data);
-        return newState;
+        clojure.lang.PersistentVector stateAndSignals = (clojure.lang.PersistentVector) processData.invoke(state, data);
+        StateAndSignalsJson stateAndSignalsJson = new StateAndSignalsJson((String) stateAndSignals.get(0), (String) stateAndSignals.get(1));
+        return stateAndSignalsJson;
     }
 
     public static String addRules(String state, String rule) {
@@ -30,7 +30,5 @@ public class ClojureInterop {
         String newState = (String) processData.invoke(state, rule);
         return newState;
     }
-
-
 
 }

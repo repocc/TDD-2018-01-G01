@@ -1,6 +1,7 @@
 package app;
 
 import clojure.interop.ClojureInterop;
+import clojure.interop.StateAndSignalsJson;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -8,6 +9,7 @@ public class RulesValidatorApp {
 
     private static RulesValidatorApp instance;
     private String state;
+    private String signals;
 
     private RulesValidatorApp() {
         this.initializeState();
@@ -36,8 +38,14 @@ public class RulesValidatorApp {
         return state;
     }
 
+    public String getSignals() {
+        return signals;
+    }
+
     public synchronized String processData(String newData) {
-        this.state = ClojureInterop.processData(this.state, newData);
+        StateAndSignalsJson stateAndSignalsJson = ClojureInterop.processData(this.state, newData);
+        this.state = stateAndSignalsJson.state;
+        this.signals = stateAndSignalsJson.signals;
         return this.state;
     }
 
