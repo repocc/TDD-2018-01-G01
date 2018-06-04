@@ -10,7 +10,7 @@ Luego posicionarse en:
 y ejecutar
     mvn clean install
     
-Para levantar el server correr la clase tp/src/java/tdd/tp/controller/Main
+Para levantar el server correr la clase tp/src/java/tdd/tp/controller/app.Main
 
 Para correr el script de prueba ejecutarlo:
     perl /scripts/send_post_request.perl
