@@ -11,6 +11,10 @@ public class Ticket {
     private String actualState;
     private Integer actualStateIndex;
 
+    public Ticket(String title) {
+        this.title = title;
+    }
+
     public String getTitle() {
         return title;
     }

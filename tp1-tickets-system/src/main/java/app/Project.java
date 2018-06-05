@@ -1,14 +1,12 @@
 package app;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Project {
 
     private String projectName;
     private List<User> users;
     private Map<Integer, Ticket> tickets;
+    private int ticketCount;
     //deberia agregarle los estados inicial y final de la vida de los tickets?
 
     public Project(String name){
@@ -22,7 +20,18 @@ public class Project {
         users.add(user);
     }
 
-    public void addTicket(Ticket ticket){
+    public void addTicket(){
+        System.out.println("Nombre del ticket: ");
+        Scanner scanner = new Scanner(System.in);
+        String title =  scanner.nextLine();
+        Ticket ticket = new Ticket(title);
+        System.out.println("Agregue una descripcion: ");
+        String description =  scanner.nextLine();
+        ticket.setDescription(description);
+        System.out.println("Tipo del ticket: ");
+        String type =  scanner.nextLine();
+        ticket.setType(type);
+        this.tickets.put((++ticketCount),ticket);
         //cuando tenga el id autoincremental seria algo del estilo
         //tickets.put(ticket.getId(), ticket);
     };
@@ -36,7 +45,6 @@ public class Project {
         id + tituloTicket para que el otro pueda elegir cual ticket modificar
         ingresando el id segun corresponda.*/
     }
-
 
 
 }
