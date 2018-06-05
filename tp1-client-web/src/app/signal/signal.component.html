@@ -1,0 +1,4 @@
+<div *ngFor="let signal of _signals" >
+  <label class="form-control">{{getTitle(signal)}}</label>
+  <app-signal-chart [data]="getDataOfMap(signal)"></app-signal-chart>
+</div>

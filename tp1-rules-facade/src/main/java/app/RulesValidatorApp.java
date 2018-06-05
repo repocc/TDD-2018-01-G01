@@ -1,18 +1,20 @@
 package app;
 
-import clojure.interop.ClojureInterop;
-import clojure.interop.StateAndSignalsJson;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class RulesValidatorApp {
 
     private static RulesValidatorApp instance;
-    private String state;
-    private String signals;
+    private static Map<String, Dashboard> dashboards = new HashMap<String, Dashboard>();
+
 
     private RulesValidatorApp() {
-        this.initializeState();
+        dashboards.put("default", new Dashboard());
     }
 
     public static RulesValidatorApp getInstance() {
@@ -24,29 +26,33 @@ public class RulesValidatorApp {
         }
     }
 
-    private String initializeState() {
-        this.state = ClojureInterop.initializeState();
-        return this.state;
+    public String addRules(String rules, String idDashboard){
+        return this.dashboards.get(idDashboard).addRules(rules);
     }
 
-    public String addRules(String rules){
-        this.state = ClojureInterop.addRules(this.state, rules);
-        return this.state;
+    public String getState(String idDashboard){
+        return dashboards.get(idDashboard).getState();
     }
 
-    public String getState(){
-        return state;
-    }
-
-    public String getSignals() {
-        return signals;
+    public String getSignals(String idDashboard) {
+        return dashboards.get(idDashboard).getSignals();
     }
 
     public synchronized String processData(String newData) {
-        StateAndSignalsJson stateAndSignalsJson = ClojureInterop.processData(this.state, newData);
-        this.state = stateAndSignalsJson.state;
-        this.signals = stateAndSignalsJson.signals;
-        return this.state;
+        for(Dashboard d : dashboards.values()) {
+            d.processData(newData);
+        }
+        return newData;
     }
+
+    public void addDashboard(String idDashboard) {
+        dashboards.put(idDashboard, new Dashboard());
+    }
+
+    public Set<String> getDashboardsIds() {
+        return this.dashboards.keySet();
+    }
+
+
 
 }

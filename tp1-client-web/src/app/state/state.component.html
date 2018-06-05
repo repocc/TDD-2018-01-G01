@@ -1,0 +1,67 @@
+
+<div class="card">
+  <div class="card-header">
+    <label for="refresh">Refresh rate:&nbsp; </label>
+    <span id="refresh">{{_refreshRate}}&nbsp; ms</span>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">
+    Counter values
+  </div>
+  <div class="card-body" *ngFor="let rule of _state.rules">
+    <div *ngIf="rule.type == 'counter'">
+      <ul class="list-group">
+        <li class="list-group-item bg-dark text-white">
+        <h5 class="card-title">{{rule.name}}</h5>
+        </li>
+        <li class="list-group-item">
+          Type {{rule.type}}
+        </li>
+        <li class="list-group-item">
+          Params {{"[" + rule.params.join(" / ") + "]"}}
+        </li>
+        <li class="list-group-item">
+          Condition {{rule.condition}}
+        </li>
+        <li class="list-group-item">
+         Values
+          <div *ngFor="let ruleValue of rule['truth-table']" >
+
+            <div *ngIf="(rule.params | json) == '[]'">
+              {{ruleValue.key}}
+              {{ruleValue.value}}
+            </div>
+
+            <div *ngIf="ruleValue.key[0] != null">
+              {{ruleValue.key}}
+              {{ruleValue.value}}
+            </div>
+          </div>
+        </li>
+      </ul>
+      <p>
+        {{rule | json}}
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    Signal values
+  </div>
+  <div class="card-body" *ngFor="let signal of _signals">
+    <ul class="list-group">
+      <li class="list-group-item bg-dark text-white">
+        <h5 class="card-title">{{signal[0]}}</h5>
+      </li>
+      <li class="list-group-item">
+        Type signal {{signal | json}}
+      </li>
+    </ul>
+
+  </div>
+</div>
+
+

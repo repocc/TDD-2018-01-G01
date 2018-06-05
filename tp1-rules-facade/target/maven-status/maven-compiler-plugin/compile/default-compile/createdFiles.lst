@@ -1,3 +1,4 @@
-clojure/interop/ClojureInterop.class
 clojure/interop/StateAndSignalsJson.class
 app/RulesValidatorApp.class
+clojure/interop/ClojureInterop.class
+app/Dashboard.class

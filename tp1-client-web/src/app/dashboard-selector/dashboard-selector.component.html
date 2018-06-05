@@ -1,0 +1,16 @@
+<div>
+  <div class="container">
+  <br/>
+  <div class="page-header">
+    <h2>&nbsp;&nbsp;Available dashboards</h2>
+  </div>
+  <br/>
+
+    <div class="list-group">
+      <button *ngFor="let dash of _dashIds" type="button" class="list-group-item list-group-item-action span4" style="font-family:monospace;" routerLink="/state/{{dash.id}}">
+        {{dash}}
+      </button>
+    </div>
+  </div>
+</div>
+

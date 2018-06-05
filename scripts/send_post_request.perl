@@ -5,11 +5,11 @@ use Data::Dumper;
 use JSON qw( decode_json );
 use LWP::UserAgent;
 
-my $data0 = '{ "name": "John", "address": "NY" }';
-my $data1 = '{ "spam":true, "important": true }';
+my $data0 = '{ "name": "John", "age":32, "address": "NY" }';
+my $data1 = '{ "spam":true, "important": true, "age":32 }';
 my $data2 = '{ "spam": false, "important": true, "name": "Dan", "address": "NY" }';
-my $data3 = '{ "name": "Dan", "address": "NY" }';
-my $data4 = '{ "name": "Dan", "address": "NY" }';
+my $data3 = '{ "name": "Dan", "age":70, "address": "NY" }';
+my $data4 = '{ "name": "Dan", "age":50, "address": "NY" }';
 
 my @dataArray = ($data0, $data1, $data2, $data3, $data4); 
 

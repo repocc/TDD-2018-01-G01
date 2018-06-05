@@ -13,12 +13,14 @@
 (defn -initialize []
   (json/write-str (initialize-processor rules)))
 
-(defn write-json [state new-data])
+(defn process [state new-data]
+  (process-data (walk/keywordize-keys (json/read-str state)) (json/read-str new-data)))
 
 (defn -process-data [state new-data]
   (do (println "Recived data " (json/read-str new-data))
-      [(json/write-str (first (process-data (walk/keywordize-keys (json/read-str state)) (json/read-str new-data))))
-       (json/write-str (second (process-data (walk/keywordize-keys (json/read-str state)) (json/read-str new-data))))]  )
+      (def processed (process state new-data))
+      [(json/write-str (first processed))
+       (json/write-str (second processed))]  )
   )
 
 (defn -add-rule [state new-rules]
