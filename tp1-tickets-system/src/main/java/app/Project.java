@@ -117,16 +117,13 @@ public class Project {
         Scanner scanner = new Scanner(System.in);
         String state = scanner.nextLine();
         this.addState(new State(state));
-        System.out.println("Siguiente estado (presione F para agregar el estado final): ");
+        System.out.println("Siguiente estado (luego de agregar el estado final presione F): ");
         state = scanner.nextLine();
         while (!state.equals("F") && !state.equals("f")) {
             this.addState(new State(state));
-            System.out.println("Siguiente estado (presione F para agregar el estado final): ");
+            System.out.println("Siguiente estado (luego de agregar el estado final presione F): ");
             state = scanner.nextLine();
         }
-        System.out.println("Estado final: ");
-        state = scanner.nextLine();
-        this.addState(new State(state));
     }
 
     private void setDefaultStates() {
