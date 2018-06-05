@@ -17,6 +17,7 @@ public class Ticket {
     public Ticket(String title) {
         this.title = title;
         this.comments = new ArrayList<Comment>();
+        this.actualStateIndex = 0;
     }
 
     public String getTitle() {
@@ -44,9 +45,13 @@ public class Ticket {
     }
 
     public void changeState(List<State> states) {
-        this.actualStateIndex ++;
-        this.actualState = states.get(this.actualStateIndex);
-        System.out.println("Estado actual: " + actualState.getName());
+        if (this.actualStateIndex < states.size() - 1) {
+            this.actualStateIndex++;
+            this.actualState = states.get(this.actualStateIndex);
+            System.out.println("Estado actual: " + actualState.getName());
+        } else {
+            System.out.println("El ticket esta en su estado final, ya no se puede cambiar de estado");
+        }
     }
 
     public void addComment(User user) {
@@ -80,6 +85,8 @@ public class Ticket {
                 break;
             case 4:
                 break;
+            default:
+                this.showMenu(user, states);
         }
     }
 

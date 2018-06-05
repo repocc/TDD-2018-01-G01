@@ -35,6 +35,7 @@ public class Project {
         ticket.setType(type);
         this.tickets.put((++ticketCount),ticket);
         ticket.setOwner(user);
+        System.out.println("Estado actual: " + this.states.get(0).getName());
     }
 
     public String getProjectName(){
@@ -84,6 +85,8 @@ public class Project {
                 break;
             case 4:
                 break;
+            default:
+                this.showMenu(user);
         }
     }
 

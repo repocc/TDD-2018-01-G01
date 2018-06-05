@@ -60,6 +60,8 @@ public class TicketSystem {
             case 4:
                 System.out.println("ELIGIO SALIR ");
                 break;
+            default:
+                this.showFirstMenu(user);
         }
     }
 
