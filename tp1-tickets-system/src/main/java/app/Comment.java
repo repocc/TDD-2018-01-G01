@@ -3,7 +3,12 @@ package app;
 public class Comment {
 
     private String text;
-    private String author;
+    private User author;
+
+    public Comment(String text, User author) {
+        this.text = text;
+        this.author = author;
+    }
 
     public String getText() {
         return text;
@@ -13,11 +18,11 @@ public class Comment {
         this.text = text;
     }
 
-    public String getAuthor() {
+    public User getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(User author) {
         this.author = author;
     }
 }

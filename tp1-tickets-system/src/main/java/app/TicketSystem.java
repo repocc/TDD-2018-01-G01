@@ -29,11 +29,13 @@ public class TicketSystem {
         //String name = System.console().readLine();
         Scanner scanner = new Scanner(System.in);
         String name =  scanner.nextLine();
-        users.add(new User(name));
+        User user = new User(name);
+        users.add(user);
         System.out.println("Bienvenido " + name);
+        this.showFirstMenu(user);
     }
 
-    public void showFirstMenu() {
+    public void showFirstMenu(User user) {
         System.out.println("Ingrese alguna de las siguientes opciones: ");
         System.out.println("1- Crear un nuevo proyecto ");
         System.out.println("2- Ver todos los proyectos ");
@@ -44,16 +46,16 @@ public class TicketSystem {
         int intOption = Integer.parseInt(option);
         switch (intOption) {
             case 1:
-                this.createProjectOption();
-                this.showFirstMenu();
+                this.createProjectOption(user);
+                this.showFirstMenu(user);
                 break;
             case 2:
                 this.showExistingProjects();
-                this.showFirstMenu();
+                this.showFirstMenu(user);
                 break;
             case 3:
-                this.modifyAProject();
-                this.showFirstMenu();
+                this.modifyAProject(user);
+                this.showFirstMenu(user);
                 break;
             case 4:
                 System.out.println("ELIGIO SALIR ");
@@ -61,12 +63,16 @@ public class TicketSystem {
         }
     }
 
-    public void createProjectOption(){
+    public void createProjectOption(User user){
 
         System.out.println("Escriba el nombre del nuevo proyecto:");
         Scanner scanner = new Scanner(System.in);
         String name =  scanner.nextLine();
-        projects.put((++proyectCount),new Project(name));
+        Project project = new Project(name);
+        projects.put((++proyectCount),project);
+        project.setStates();
+        user.addProjectCreated(project);
+        project.setOwner(user);
     }
 
     public void showExistingProjects(){
@@ -77,45 +83,16 @@ public class TicketSystem {
         }
     }
 
-    public void modifyAProject(){
+    public void modifyAProject(User user){
         this.showExistingProjects();
         System.out.println("Ingrese el id del proyecto que desea modificar/cambiar de estado:");
         Scanner scanner = new Scanner(System.in);
         String idProject =  scanner.nextLine();
         System.out.println("Eligio: " + idProject + " para modificar");
         Project project = projects.get(Integer.valueOf(idProject));
-        this.showProjectMenu(project);
+        project.showMenu(user);
 
     }
-
-    private void showProjectMenu(Project project) {
-        System.out.println("Que desea hacer?: ");
-        System.out.println("1- Agregar ticket ");
-        System.out.println("2- Editar ticket ");
-        System.out.println("3- Mostrar todos los tickets");
-        System.out.println("4- Volver al menu principal ");
-        Scanner scanner = new Scanner(System.in);
-        String option = scanner.nextLine();
-        int intOption = Integer.parseInt(option);
-        switch (intOption) {
-            case 1:
-                project.addTicket();
-                this.showProjectMenu(project);
-                break;
-            case 2:
-                this.showExistingProjects();
-                this.showFirstMenu();
-                break;
-            case 3:
-                this.modifyAProject();
-                this.showFirstMenu();
-                break;
-            case 4:
-                this.showFirstMenu();
-                break;
-        }
-    }
-
 
 }
 

@@ -6,7 +6,6 @@ public class Main {
 
         TicketSystem ticketSystem = TicketSystem.getInstance();
         ticketSystem.login();
-        ticketSystem.showFirstMenu();
 
     }
 }
