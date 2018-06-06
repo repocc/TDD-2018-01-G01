@@ -2,21 +2,34 @@ package main.java.tdd.tp.controller;
 
 import app.RulesValidatorApp;
 import org.springframework.http.MediaType;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import tdd.tp.controller.Accesor;
 
 import java.util.Set;
 
 @Controller
+@EnableWebSocket
 public class DataController {
 	
 	RulesValidatorApp rt;
+
+	@MessageMapping({"/process"})
+	@SendTo("/topic/messages")
+	public String processNewData(String newData) {
+		Accesor acc = new Accesor();
+		return acc.processDataAndReturnSignals(newData);
+	}
 
 	@RequestMapping(value = "/process-data", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String getResponse(@RequestBody String newData) {
 		 rt = RulesValidatorApp.getInstance();
-		 return rt.processData(newData);
+		 String processed = rt.processData(newData);
+		 return processed;
 	}
 
 	@CrossOrigin(origins = "*", maxAge = 3600)
@@ -58,6 +71,5 @@ public class DataController {
 		rt = RulesValidatorApp.getInstance();
 		rt.addDashboard(idDashboard);
 	}
-
 
 }

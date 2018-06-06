@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {WebsocketService} from "./websocket.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,8 @@ export class StateService {
   private postRulesUrl = 'http://localhost:8080/add-rules';
   private dashboardsUrl = 'http://localhost:8080/get-dashboards';
   private createDashboardUrl = 'http://localhost:8080/create-dashboard';
+
+  private socketTest = 'ws://localhost:8080/gs-guide-websocket';
 
 
   getState(id): Observable<string> {
@@ -38,5 +41,12 @@ export class StateService {
       (err) => {console.log(err); alert("Error generating dashboard.\n" + err.message)});
   }
 
-  constructor(private http: HttpClient) { }
+  public messages: Subject<MessageEvent>;
+  connectToSignalsBroker() {
+    return this.messages = <Subject<MessageEvent>> this.wsService
+      .connect(this.socketTest);
+  }
+
+
+  constructor(private http: HttpClient, private wsService: WebsocketService) { }
 }

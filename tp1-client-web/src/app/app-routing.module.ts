@@ -5,6 +5,7 @@ import {RulesDefinitionComponent} from "./rules-definition/rules-definition.comp
 import {HomeComponent} from "./home/home.component";
 import {DashboardSelectorComponent} from "./dashboard-selector/dashboard-selector.component";
 import {SignalComponent} from "./signal/signal.component";
+import {WebsocketTestComponent} from "./websocket-test/websocket-test.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'dashboard-selector', component: DashboardSelectorComponent },
   { path: 'state/:id', component: StateComponent },
   { path: 'signals/:id', component: SignalComponent },
+  { path: 'test', component: WebsocketTestComponent },
   { path: '', component: HomeComponent }
 ];
 
