@@ -20,17 +20,15 @@ public class DataController {
 	@MessageMapping({"/process"})
 	@SendTo("/topic/messages")
 	public String processNewData(String newData) {
-		Accesor acc = new Accesor();
 		//TODO given that websockets push to a single topic, it must have to recieve an order to change the dashboard
-		return acc.processDataAndReturnSignals(newData, "default");
+		return Accesor.processDataAndReturnSignals(newData, "default");
 	}
 
 	@RequestMapping(value = "/process-data", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String getResponse(@RequestBody String newData) {
 		 rt = RulesValidatorApp.getInstance();
-		 String processed = rt.processData(newData);
-		 return processed;
+		 return rt.processData(newData);
 	}
 
 	@CrossOrigin(origins = "*", maxAge = 3600)

@@ -1,5 +1,6 @@
 package main.java.tdd.tp;
 
+import app.RulesValidatorApp;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -23,9 +24,16 @@ public class Main implements WebMvcConfigurer {
         ServletHolder servletHolder = new ServletHolder(new DispatcherServlet(webContext));
         servletContextHandler.addServlet(servletHolder, "/*");
 
+        initializeRulesApp();
+
         server.setHandler(servletContextHandler);
         server.start();
         server.join();
 
+    }
+
+    public static void initializeRulesApp() {
+        //This is done due to clojure interop internal issue with multiple class creation at the same time.
+        RulesValidatorApp.getInstance();
     }
 }

@@ -19,7 +19,7 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
         while (true) {
             Random rand = new Random();
             Integer age = (Math.abs(rand.nextInt()) % 120);
-            publishData("{\"name\": \"Dan\",\"age\": "+ age +"}");
+            publishData("{\"name\": \"Dan\",\"age\": "+ age +"\"spam\": "+ rand.nextBoolean() +", \"important\":" + rand.nextBoolean() +"}");
             sleep();
             age = (Math.abs(rand.nextInt()) % 120);
             publishData( "{\"name\": \"Julia\",\"age\": "+ age +"}");
