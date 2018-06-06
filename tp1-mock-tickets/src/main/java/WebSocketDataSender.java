@@ -8,20 +8,24 @@ import org.springframework.web.socket.messaging.WebSocketStompClient;
 
 import java.util.Scanner;
 
-public class DataSender
-{
-    public static void main(String[] args) throws Exception
-    {
-        String url = "ws://localhost:8080/processor/websocket";
+public class WebSocketDataSender {
 
+    public static void main(String[] args) throws Exception {
+        String url = Constants.WS_ENDPOINT_URL;
+        connect(url);
+        halt();
+    }
+
+    public static void connect(String url) {
         WebSocketClient client = new StandardWebSocketClient();
-
         WebSocketStompClient stompClient = new WebSocketStompClient(client);
         stompClient.setMessageConverter(new MappingJackson2MessageConverter());
-
         StompSessionHandler sessionHandler = new MyStompSessionHandler();
         stompClient.connect(url, sessionHandler);
-
-        new Scanner(System.in).nextLine(); // Don't close immediately.
     }
+
+    public static void halt() {
+        new Scanner(System.in).nextLine();
+    }
+
 }

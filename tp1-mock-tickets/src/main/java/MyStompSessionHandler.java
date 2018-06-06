@@ -12,20 +12,20 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
     @Override
     public void afterConnected(
             StompSession session, StompHeaders connectedHeaders) {
-        session.subscribe("/topic/messages/", this);
+        session.subscribe(Constants.TOPIC, this);
 
         this.session = session;
 
         while (true) {
             Random rand = new Random();
             Integer age = (Math.abs(rand.nextInt()) % 120);
-            session.send("/app/process", "{\"name\": \"Dan\",\"age\": "+ age +"}");
+            publishData("{\"name\": \"Dan\",\"age\": "+ age +"}");
             sleep();
             age = (Math.abs(rand.nextInt()) % 120);
-            session.send("/app/process", "{\"name\": \"Julia\",\"age\": "+ age +"}");
+            publishData( "{\"name\": \"Julia\",\"age\": "+ age +"}");
             sleep();
             age = (Math.abs(rand.nextInt()) % 120);
-            session.send("/app/process", "{\"name\": \"Johnny\",\"age\": "+ age +"}");
+            publishData( "{\"name\": \"Johnny\",\"age\": "+ age +"}");
             sleep();
         }
 
@@ -38,7 +38,7 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
 
     public void sleep() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(Constants.TIME_TO_WAIT);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -46,7 +46,9 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
 
     public void publishData(String data) {
         if(this.session != null) {
-            this.session.send("/app/process", data);
+            this.session.send(Constants.BROKER, data);
+        } else {
+            throw new RuntimeException("Not connected.");
         }
     }
 
