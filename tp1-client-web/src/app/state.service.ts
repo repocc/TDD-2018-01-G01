@@ -32,7 +32,7 @@ export class StateService {
   postRules(rules, id) {
     this.http.post(this.postRulesUrl + "/" + id, rules).subscribe(
       (data) => data,
-      (err) => {console.log(err); alert("Error generating rule.\n" + err.message)});
+      (err) => {console.log(err); alert("Error generating rule.\nCheck your syntax or contact the admin.")});
   }
 
   createDashboard(id) {

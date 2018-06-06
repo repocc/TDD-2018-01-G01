@@ -8,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class SignalChartComponent implements OnInit {
 
   @Input() data: {};
+  @Input() name: "";
 
   _chart_x_data = [];
   _chart_y_data = [];

@@ -21,7 +21,8 @@ public class DataController {
 	@SendTo("/topic/messages")
 	public String processNewData(String newData) {
 		Accesor acc = new Accesor();
-		return acc.processDataAndReturnSignals(newData);
+		//TODO given that websockets push to a single topic, it must have to recieve an order to change the dashboard
+		return acc.processDataAndReturnSignals(newData, "default");
 	}
 
 	@RequestMapping(value = "/process-data", method = RequestMethod.POST, produces = "application/json")

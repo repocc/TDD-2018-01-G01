@@ -4,10 +4,8 @@ import {ActivatedRoute} from "@angular/router";
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
-import { Injectable } from '@angular/core';
 
-import {StompConfig, StompService} from '@stomp/ng2-stompjs';
-import { StompRService } from '@stomp/ng2-stompjs';
+import {StompService} from '@stomp/ng2-stompjs';
 import {Message} from '@stomp/stompjs';
 
 @Component({
@@ -17,13 +15,11 @@ import {Message} from '@stomp/stompjs';
 })
 export class SignalComponent implements OnInit {
 
-  _state: string;
-  _signals: string;
+  private _state: string;
+  private _signals: string;
   interval: any;
-  _refreshRate = 2000;
-  _id = 'default';
-
-  _signalsMap = {};
+  private _id = 'default';
+  private _signalsMap = {};
 
   constructor(private stateService: StateService,
               private route: ActivatedRoute,
@@ -44,18 +40,14 @@ export class SignalComponent implements OnInit {
       .subscribe(signals => {
         this._signals = signals;
         JSON.parse(JSON.stringify(signals)).map(x => this.addToSignalMap(x));
-        this.addToSignalMap(signals);
       });
   }
 
   public addToSignalMap(signal): void {
-    console.log("this is your shitty signal");
-    console.log(signal);
-    console.log((Object.values(signal)[0]));
-    console.log((Object.values(signal)[0] == 0));
+
     var time = new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
     var elements = this._signalsMap[Object.keys(signal)[0]];
-    if(signal && !(Object.values(signal)[0] instanceof Array) && (Object.values(signal)[0])) {
+    if(this.isValidPoint(signal)) {
 
       if(typeof elements === "undefined") {
         this._signalsMap[Object.keys(signal)[0]] = [];
@@ -67,8 +59,17 @@ export class SignalComponent implements OnInit {
     }
   }
 
+  public isValidPoint (signal) {
+    return (signal && !(Object.values(signal)[0] instanceof Array) && (Object.values(signal)[0]));
+  }
+
   public getDataOfMap(signal){
     return this._signalsMap[Object.keys(signal)[0]];
+  }
+
+  public getSignalName(signal) {
+    return Object.keys(signal)[0];
+
   }
 
   public getTitle(signal): string {

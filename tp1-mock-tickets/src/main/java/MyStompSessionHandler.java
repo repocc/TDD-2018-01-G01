@@ -7,20 +7,24 @@ import java.util.Random;
 
 public class MyStompSessionHandler extends StompSessionHandlerAdapter {
 
+    private StompSession session = null;
+
     @Override
     public void afterConnected(
             StompSession session, StompHeaders connectedHeaders) {
         session.subscribe("/topic/messages/", this);
 
+        this.session = session;
+
         while (true) {
             Random rand = new Random();
-            Integer age = (rand.nextInt() % 120);
+            Integer age = (Math.abs(rand.nextInt()) % 120);
             session.send("/app/process", "{\"name\": \"Dan\",\"age\": "+ age +"}");
             sleep();
-            age = (rand.nextInt() % 120);
+            age = (Math.abs(rand.nextInt()) % 120);
             session.send("/app/process", "{\"name\": \"Julia\",\"age\": "+ age +"}");
             sleep();
-            age = (rand.nextInt() % 120);
+            age = (Math.abs(rand.nextInt()) % 120);
             session.send("/app/process", "{\"name\": \"Johnny\",\"age\": "+ age +"}");
             sleep();
         }
@@ -34,9 +38,15 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
 
     public void sleep() {
         try {
-            Thread.sleep(100);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void publishData(String data) {
+        if(this.session != null) {
+            this.session.send("/app/process", data);
         }
     }
 
