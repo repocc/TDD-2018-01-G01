@@ -15,7 +15,6 @@ import {Message} from '@stomp/stompjs';
 })
 export class SignalComponent implements OnInit {
 
-  private _state: string;
   private _signals: string;
   interval: any;
   private _id = 'default';
@@ -67,11 +66,6 @@ export class SignalComponent implements OnInit {
     return this._signalsMap[Object.keys(signal)[0]];
   }
 
-  public getSignalName(signal) {
-    return Object.keys(signal)[0];
-
-  }
-
   public getTitle(signal): string {
     return Object.keys(signal)[0];
   }
@@ -86,8 +80,6 @@ export class SignalComponent implements OnInit {
       console.log(`Received: ${msg_body}`);
     });
   }
-
-
 
 }
 
