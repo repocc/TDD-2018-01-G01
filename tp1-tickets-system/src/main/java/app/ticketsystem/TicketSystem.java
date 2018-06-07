@@ -6,13 +6,20 @@ public class TicketSystem {
 
     private static TicketSystem instance;
     private Map<Integer, User> users;
+    private Map<String,Integer> nameUser_id;
     private Map <Integer,Project> projects;
     private static int projectCount = 0;
     private static int userCount = 0;
 
 
     public TicketSystem() {
-        users = new HashMap<Integer, User>();
+        Parser user_parser = new Parser();
+        users = user_parser.parseUsersList();
+        nameUser_id = new HashMap<String, Integer>();
+        for (int id: users.keySet()){
+            String name = users.get(id).getName();
+            nameUser_id.put(name,id);
+        }
         projects = new HashMap<Integer, Project>();
     }
 
@@ -29,10 +36,14 @@ public class TicketSystem {
         System.out.println("Escriba su nombre: ");
         Scanner scanner = new Scanner(System.in);
         String name =  scanner.nextLine();
-        User user = new User(name);
-        users.put((++userCount),user);
-        System.out.println("Bienvenido " + name);
-        this.showFirstMenu(user);
+        if(nameUser_id.containsKey(name)){
+            System.out.println("Bienvenido " + name);
+            User user = users.get(nameUser_id.get(name));
+            this.showFirstMenu(user);
+        }else{
+            System.out.println("Usuario inexistente");
+            login();
+        }
     }
 
     public void showFirstMenu(User user) {
