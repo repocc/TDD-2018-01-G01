@@ -1,4 +1,4 @@
-package app;
+package app.ticketsystem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,5 +113,13 @@ public class Ticket {
 
     public void setResponsable(User responsable) {
         this.responsable = responsable;
+    }
+
+    public State getActualState() {
+        return actualState;
+    }
+
+    public void setActualState(State actualState) {
+        this.actualState = actualState;
     }
 }
