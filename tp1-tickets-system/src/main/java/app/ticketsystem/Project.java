@@ -24,15 +24,21 @@ public class Project {
         System.out.println("Nombre del ticket: ");
         Scanner scanner = new Scanner(System.in);
         String title =  scanner.nextLine();
-        Ticket ticket = new Ticket(title);
+        Ticket ticket = new Ticket(title, this.states.get(0).getName());
         System.out.println("Agregue una descripcion: ");
         String description =  scanner.nextLine();
         ticket.setDescription(description);
         System.out.println("Tipo del ticket: ");
         String type =  scanner.nextLine();
         ticket.setType(type);
-        this.tickets.put((++ticketCount),ticket);
         ticket.setOwner(user);
+        System.out.println("Agregue un responsable: ");
+        this.showUsers(users);
+        System.out.println("Id usuario: ");
+        String idUser = scanner.nextLine();
+        Integer idInteger = Integer.valueOf(idUser);
+        ticket.setResponsable(this.users.get(idInteger));
+        this.tickets.put((++ticketCount),ticket);
         System.out.println("Estado actual: " + this.states.get(0).getName());
     }
 
@@ -63,7 +69,7 @@ public class Project {
         System.out.println("Que desea hacer?: ");
         System.out.println("1- Agregar ticket ");
         System.out.println("2- Editar ticket ");
-        System.out.println("3- Mostrar todos los tickets");
+        System.out.println("3- Ver informacion de algun ticket");
         System.out.println("4- Agregar gente al proyecto");
         System.out.println("5- Volver al menu principal ");
         Scanner scanner = new Scanner(System.in);
@@ -79,7 +85,7 @@ public class Project {
                 this.showMenu(user, users);
                 break;
             case 3:
-                this.showTickets();
+                this.showTicketInfo();
                 this.showMenu(user, users);
                 break;
             case 4:
@@ -90,6 +96,15 @@ public class Project {
             default:
                 this.showMenu(user, users);
         }
+    }
+
+    private void showTicketInfo() {
+        this.showTickets();
+        System.out.println("Ingrese el id del ticket del que desea ver los detalles:");
+        Scanner scanner = new Scanner(System.in);
+        String idTicket = scanner.nextLine();
+        Ticket ticket = tickets.get(Integer.valueOf(idTicket));
+        ticket.showInfo();
     }
 
     private void addUser(Map<Integer, User> users) {
@@ -159,10 +174,14 @@ public class Project {
         String idUser = scanner.nextLine();
         Integer idInteger = Integer.valueOf(idUser);
         while (idInteger != 0) {
-            this.users.put(idInteger, users.get(idInteger));
-            System.out.println("Qué rol va a desempeñar? ");
-            String role = scanner.nextLine();
-            this.roles.put(idInteger, role);
+            if (users.containsKey(idInteger)) {
+                this.users.put(idInteger, users.get(idInteger));
+                System.out.println("Qué rol va a desempeñar? ");
+                String role = scanner.nextLine();
+                this.roles.put(idInteger, role);
+            } else {
+                System.out.println("El id ingresado no corresponde con ningun usuario");
+            }
             System.out.println("Id usuario: ");
             idUser = scanner.nextLine();
             idInteger = Integer.valueOf(idUser);
