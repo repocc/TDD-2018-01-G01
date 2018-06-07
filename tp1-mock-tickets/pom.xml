@@ -24,8 +24,6 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.9.4</version>
         </dependency>
-
-
     </dependencies>
     <groupId>tp1-mock-tickets</groupId>
     <artifactId>tp1-mock-tickets</artifactId>

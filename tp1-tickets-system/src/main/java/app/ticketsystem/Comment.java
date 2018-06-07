@@ -1,9 +1,13 @@
 package app.ticketsystem;
 
+import app.websocket.JsonMessageSender;
+
 public class Comment {
 
     private String text;
     private User author;
+
+    JsonMessageSender Logger = JsonMessageSender.getInstance();
 
     public Comment(String text, User author) {
         this.text = text;

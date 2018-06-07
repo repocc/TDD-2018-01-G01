@@ -1,5 +1,7 @@
 package app.ticketsystem;
 
+import app.websocket.JsonMessageSender;
+
 import java.util.*;
 
 public class TicketSystem {
@@ -10,6 +12,8 @@ public class TicketSystem {
     private Map <Integer,Project> projects;
     private static int projectCount = 0;
     private static int userCount = 0;
+
+    public JsonMessageSender Logger = JsonMessageSender.getInstance();
 
 
     public TicketSystem() {
@@ -39,6 +43,7 @@ public class TicketSystem {
         if(nameUser_id.containsKey(name)){
             System.out.println("Bienvenido " + name);
             User user = users.get(nameUser_id.get(name));
+            Logger.publishData("{\"newUser\":\""+ name +"\"}");
             this.showFirstMenu(user);
         }else{
             System.out.println("Usuario inexistente");

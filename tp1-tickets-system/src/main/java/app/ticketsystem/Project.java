@@ -1,4 +1,6 @@
 package app.ticketsystem;
+import app.websocket.JsonMessageSender;
+
 import java.util.*;
 
 public class Project {
@@ -12,12 +14,16 @@ public class Project {
     private List<State> states;
     //deberia agregarle los estados inicial y final de la vida de los tickets?
 
+    JsonMessageSender Logger = JsonMessageSender.getInstance();
+
     public Project(String name){
         projectName = name;
         tickets = new HashMap<Integer, Ticket>();
         states = new ArrayList<State>();
         users = new HashMap<Integer, User>();
         roles = new HashMap<Integer, String>();
+
+        Logger.publishData("{\"test\": 1}");
     }
 
     public void addTicket(User user){
