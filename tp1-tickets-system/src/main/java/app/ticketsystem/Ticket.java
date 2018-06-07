@@ -1,4 +1,4 @@
-package app;
+package app.ticketsystem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +14,11 @@ public class Ticket {
     private User owner;
     private User responsable;
 
-    public Ticket(String title) {
+    public Ticket(String title, String state) {
         this.title = title;
         this.comments = new ArrayList<Comment>();
         this.actualStateIndex = 0;
+        this.actualState = new State(state);
     }
 
     public String getTitle() {
@@ -113,5 +114,30 @@ public class Ticket {
 
     public void setResponsable(User responsable) {
         this.responsable = responsable;
+    }
+
+    public State getActualState() {
+        return actualState;
+    }
+
+    public void setActualState(State actualState) {
+        this.actualState = actualState;
+    }
+
+    public void showInfo() {
+        System.out.println("Titulo " + this.title);
+        System.out.println("Descripcion: " + this.description);
+        System.out.println("Tipo: " + this.type);
+        System.out.println("Estado: " + this.actualState.getName());
+        System.out.println("Creador:" + this.owner.getName());
+        if (this.responsable != null) {
+            System.out.println("Responsable: " + this.responsable.getName());
+        }
+        if (!comments.isEmpty()) {
+            System.out.println("Comentarios: ");
+            for (Comment comment : comments) {
+                System.out.println(comment.getAuthor().getName() + ": " + comment.getText());
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-package app;
+package app.ticketsystem;
 
 
 import java.util.ArrayList;
@@ -26,4 +26,5 @@ public class User {
     public void addProjectCreated(Project project) {
         this.projectsCreated.add(project);
     }
+
 }

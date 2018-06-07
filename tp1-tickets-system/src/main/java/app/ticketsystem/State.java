@@ -1,4 +1,4 @@
-package app;
+package app.ticketsystem;
 
 public class State {
 
