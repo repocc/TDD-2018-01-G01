@@ -19,8 +19,4 @@ public class WebSocketDataSender {
         return sessionHandler;
     }
 
-    public static void halt() {
-        new Scanner(System.in).nextLine();
-    }
-
 }

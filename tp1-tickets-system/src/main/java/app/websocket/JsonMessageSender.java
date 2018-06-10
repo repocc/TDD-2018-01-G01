@@ -18,7 +18,11 @@ public class JsonMessageSender {
     }
 
     public void publishData(String data) {
-        session.publishData(data);
+        try {
+            session.publishData(data);
+        } catch(RuntimeException e) {
+            //TODO: Log exception
+        }
     }
 
 

@@ -1,4 +1,4 @@
-package app.ticketsystem;
+package sample;
 
 import java.io.File;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ public class Parser {
 
         Map<Integer,User> users = new HashMap<Integer, User>();
         try {
-            File inputFile = new File("../tp1-tickets-system/src/main/resources/users.xml");
+            File inputFile = new File("../ticket-system/src/sample/users.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -30,8 +30,8 @@ public class Parser {
                     Element eElement = (Element) nNode;
                     int id = Integer.parseInt(eElement.getElementsByTagName("id").item(0).getTextContent());
                     String name = eElement.getElementsByTagName("user_name").item(0).getTextContent();
-                    users.put(id, new User(name));
-
+                    String password = eElement.getElementsByTagName("password").item(0).getTextContent();
+                    users.put(id, new User(name, password));
                 }
             }
         } catch (Exception e) {

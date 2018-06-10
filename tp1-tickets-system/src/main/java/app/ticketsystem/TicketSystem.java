@@ -43,7 +43,9 @@ public class TicketSystem {
         if(nameUser_id.containsKey(name)){
             System.out.println("Bienvenido " + name);
             User user = users.get(nameUser_id.get(name));
+
             Logger.publishData("{\"newUser\":\""+ name +"\"}");
+
             this.showFirstMenu(user);
         }else{
             System.out.println("Usuario inexistente");

@@ -1,5 +1,4 @@
-package app.ticketsystem;
-import app.websocket.JsonMessageSender;
+package sample;
 
 import java.util.*;
 
@@ -13,8 +12,6 @@ public class Project {
     private User owner;
     private List<State> states;
 
-    JsonMessageSender Logger = JsonMessageSender.getInstance();
-
     public Project(String name){
         projectName = name;
         tickets = new HashMap<Integer, Ticket>();
@@ -22,7 +19,6 @@ public class Project {
         users = new HashMap<Integer, User>();
         roles = new HashMap<Integer, String>();
 
-        Logger.publishData("{\"test\": 1}");
     }
 
     public void addTicket(User user){
