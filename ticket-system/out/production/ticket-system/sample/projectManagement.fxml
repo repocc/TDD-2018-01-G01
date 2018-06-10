@@ -11,9 +11,9 @@
 <BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ProjectController">
    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" />
       <center>
-         <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: green;" BorderPane.alignment="CENTER">
+         <AnchorPane fx:id="projectScreen" nodeOrientation="LEFT_TO_RIGHT" prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: green;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="58.0" layoutY="51.0" prefHeight="30.0" prefWidth="310.0" style="-fx-font-size: 25;" text="Proyectos existententes" />
+            <Label layoutX="58.0" layoutY="51.0" prefHeight="30.0" prefWidth="310.0" style="-fx-font-size: 25;" text="Proyectos existentes" />
             <Pane fx:id="editionMenu" layoutX="622.0" layoutY="-1.0" prefHeight="900.0" prefWidth="278.0" style="-fx-background-color: green;">
                <children>
                   <TextField fx:id="projectName" layoutX="22.0" layoutY="71.0" prefHeight="26.0" prefWidth="235.0" promptText="Nombre del proyecto" visible="false" />
@@ -21,7 +21,7 @@
                   <Label fx:id="createProject" layoutX="73.0" layoutY="28.0" style="-fx-font-size: 15;" text="Crear proyecto" visible="false" />
                   <Button fx:id="states" layoutX="22.0" layoutY="370.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="240.0" text="Flujo de estado de tickets" visible="false" />
                   <Button fx:id="projectUsers" layoutX="23.0" layoutY="424.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="242.0" text="Colaboradores" visible="false" />
-                  <Button fx:id="projectFinished" layoutX="20.0" layoutY="639.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="243.0" text="Crear proyecto" visible="false" />
+                  <Button fx:id="projectFinished" layoutX="20.0" layoutY="639.0" mnemonicParsing="false" onAction="#addProject" prefHeight="26.0" prefWidth="243.0" text="Crear proyecto" visible="false" />
                </children>
             </Pane>
             <Button fx:id="createProjectButton" layoutX="424.0" layoutY="53.0" mnemonicParsing="false" onAction="#createProject" prefHeight="26.0" prefWidth="178.0" text="Crear proyecto" />
