@@ -10,18 +10,18 @@ public class Project {
     private Map<Integer, Ticket> tickets;
     private int ticketCount;
     private User owner;
-    private List<State> states;
+    //private List<State> states;
 
     public Project(String name){
         projectName = name;
         tickets = new HashMap<Integer, Ticket>();
-        states = new ArrayList<State>();
+        //states = new ArrayList<State>();
         users = new HashMap<Integer, User>();
         roles = new HashMap<Integer, String>();
 
     }
 
-    public void addTicket(User user){
+    /*public void addTicket(User user){
         System.out.println("Nombre del ticket: ");
         Scanner scanner = new Scanner(System.in);
         String title =  scanner.nextLine();
@@ -41,7 +41,7 @@ public class Project {
         ticket.setResponsable(this.users.get(idInteger));
         this.tickets.put((++ticketCount),ticket);
         System.out.println("Estado actual: " + this.states.get(0).getName());
-    }
+    }*/
 
     public String getProjectName(){
         return projectName;
@@ -50,8 +50,8 @@ public class Project {
     public void showTickets(){
         for (Integer id: tickets.keySet()){
             String key = id.toString();
-            String value = tickets.get(id).getTitle();
-            System.out.println(key + " " + value);
+            //String value = tickets.get(id).getTitle();
+           // System.out.println(key + " " + value);
         }
     }
 
@@ -62,7 +62,7 @@ public class Project {
         String idTicket =  scanner.nextLine();
         System.out.println("Eligio: " + idTicket + " para editar");
         Ticket ticket = tickets.get(Integer.valueOf(idTicket));
-        ticket.showMenu(user, this.states);
+        //ticket.showMenu(user, this.states);
     }
 
 
@@ -78,7 +78,7 @@ public class Project {
         int intOption = Integer.parseInt(option);
         switch (intOption) {
             case 1:
-                this.addTicket(user);
+                //this.addTicket(user);
                 this.showMenu(user, users);
                 break;
             case 2:
@@ -105,11 +105,11 @@ public class Project {
         Scanner scanner = new Scanner(System.in);
         String idTicket = scanner.nextLine();
         Ticket ticket = tickets.get(Integer.valueOf(idTicket));
-        ticket.showInfo();
+        //ticket.showInfo();
     }
 
     private void addUser(Map<Integer, User> users) {
-        this.showUsers(users);
+        //this.showUsers(users);
         System.out.println("Id usuario a agregar al proyecto: ");
         Scanner scanner = new Scanner(System.in);
         String idUser = scanner.nextLine();
@@ -129,7 +129,7 @@ public class Project {
         this.owner = owner;
     }
 
-    public void setStates() {
+    /*public void setStates() {
         System.out.println("Desea modificar el flujo de estados del proyecto? Si elige que no, se setearán un estado inicial y final por default (S/N): ");
         Scanner scanner = new Scanner(System.in);
         String option = scanner.nextLine();
@@ -141,9 +141,9 @@ public class Project {
             this.setStates();
         }
 
-    }
+    }*/
 
-    private void setStateFlow() {
+    /*private void setStateFlow() {
         System.out.println("Estado inicial: ");
         Scanner scanner = new Scanner(System.in);
         String state = scanner.nextLine();
@@ -155,9 +155,9 @@ public class Project {
             System.out.println("Siguiente estado (luego de agregar el estado final presione F): ");
             state = scanner.nextLine();
         }
-    }
+    }*/
 
-    private void setDefaultStates() {
+    /*private void setDefaultStates() {
         this.addState(new State("Backlog"));
         this.addState(new State("Finished"));
     }
@@ -212,7 +212,7 @@ public class Project {
                 System.out.println(value + ": " + tickets.get(id).getActualState().getName());
             }
         }
-    }
+    }*/
 }
 
 

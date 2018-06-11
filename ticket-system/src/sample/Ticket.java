@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Ticket {
-    private String title;
+    /*private String title;
     private String description;
     private String type;
     private List<Comment> comments;
@@ -139,5 +139,5 @@ public class Ticket {
                 System.out.println(comment.getAuthor().getName() + ": " + comment.getText());
             }
         }
-    }
+    }*/
 }

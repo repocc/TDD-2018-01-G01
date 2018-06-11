@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StatesController">
+   <children>
+      <ScrollPane layoutX="32.0" layoutY="28.0" prefHeight="350.0" prefWidth="200.0">
+        <content>
+          <AnchorPane fx:id="stateFlowPane" minHeight="0.0" minWidth="0.0" prefHeight="350.0" prefWidth="200.0" />
+        </content>
+      </ScrollPane>
+      <SplitPane dividerPositions="0.29797979797979796" layoutX="271.0" layoutY="28.0" prefHeight="350.0" prefWidth="397.0">
+        <items>
+          <AnchorPane fx:id="statesShowPaneLeft" minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="195.0" />
+          <AnchorPane fx:id="statesShowPaneRight" minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="146.0" />
+        </items>
+      </SplitPane>
+      <TextField fx:id="statesText" layoutX="32.0" layoutY="406.0" prefHeight="26.0" prefWidth="206.0" promptText="Ingrese estado..." />
+      <Button fx:id="addState" layoutX="32.0" layoutY="448.0" mnemonicParsing="false" onAction="#setRole" text="Agregar" />
+      <Button fx:id="applyStatesFlow" layoutX="526.0" layoutY="448.0" mnemonicParsing="false" onAction="#setStatesFlow" prefHeight="26.0" prefWidth="147.0" text="Aplicar" />
+   </children>
+</AnchorPane>
