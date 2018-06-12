@@ -1,27 +1,24 @@
-package sample;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Ticket {
-    /*private String title;
-    private String description;
+    private String title;
+    /*private String description;
     private String type;
     private List<Comment> comments;
     private State actualState;
     private Integer actualStateIndex;
     private User owner;
-    private User responsable;
+    private User responsable;*/
 
-    public Ticket(String title, String state) {
+    public Ticket(String title) {
         this.title = title;
-        this.comments = new ArrayList<Comment>();
-        this.actualStateIndex = 0;
-        this.actualState = new State(state);
     }
 
-    public String getTitle() {
+   /* public String getTitle() {
         return title;
     }
 

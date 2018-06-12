@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ProjectController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProjectController">
    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" />
       <center>
          <AnchorPane fx:id="projectScreen" nodeOrientation="LEFT_TO_RIGHT" prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: green;" BorderPane.alignment="CENTER">

@@ -1,5 +1,6 @@
-package sample;
+package controllers;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -9,9 +10,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.Project;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -41,7 +44,7 @@ public class ProjectController {
     private Button projectUsers;
     @FXML
     private Button projectFinished;
-    private Map<Integer,Project> projects = new HashMap<>();
+    private Map<Integer, Project> projects = new HashMap<>();
     private static int projectCount = 0;
     private Double initialHeight = INITIAL_HEIGHT;
 
@@ -65,10 +68,26 @@ public class ProjectController {
         projectButton.setLayoutY(initialHeight + projectButton.getPrefHeight() + SPACE_BETWEEN_PROJECTS);
         initialHeight = projectButton.getLayoutY();
         projectScreen.getChildren().add(projectButton);
+        projectButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Parent projectPage = null;
+                try {
+                    projectPage = FXMLLoader.load(getClass().getResource("../resources/ticket.fxml"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Scene projectScene = new Scene(projectPage);
+                Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                appStage.hide();
+                appStage.setScene(projectScene);
+                appStage.show();
+            }
+        });
     }
 
     public void openStatesWindow() throws IOException {
-        Parent statesPage = FXMLLoader.load(getClass().getResource("states.fxml"));
+        Parent statesPage = FXMLLoader.load(getClass().getResource("../resources/states.fxml"));
         Stage stage = new Stage();
         stage.setTitle("Flujo de estados de tickets");
         stage.setScene(new Scene(statesPage));
@@ -76,7 +95,7 @@ public class ProjectController {
     }
 
     public void openRolesWindow() throws IOException {
-        Parent statesPage = FXMLLoader.load(getClass().getResource("roles.fxml"));
+        Parent statesPage = FXMLLoader.load(getClass().getResource("../resources/roles.fxml"));
         Stage stage = new Stage();
         stage.setTitle("Asignacion de roles de usuarios");
         stage.setScene(new Scene(statesPage));

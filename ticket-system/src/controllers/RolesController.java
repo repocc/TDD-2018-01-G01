@@ -1,12 +1,13 @@
-package sample;
+package controllers;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Parser;
+import model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;

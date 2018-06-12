@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.RolesController">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RolesController">
    <children>
       <SplitPane dividerPositions="0.29797979797979796" layoutX="330.0" layoutY="31.0" prefHeight="350.0" prefWidth="330.0">
         <items>

@@ -1,4 +1,4 @@
-package sample;
+package model;
 
 import java.io.File;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ public class Parser {
 
         Map<Integer,User> users = new HashMap<Integer, User>();
         try {
-            File inputFile = new File("../ticket-system/src/sample/users.xml");
+            File inputFile = new File("../ticket-system/src/resources/users.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
