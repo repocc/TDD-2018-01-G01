@@ -74,4 +74,12 @@ public class ProjectController {
         stage.setScene(new Scene(statesPage));
         stage.show();
     }
+
+    public void openRolesWindow() throws IOException {
+        Parent statesPage = FXMLLoader.load(getClass().getResource("roles.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle("Asignacion de roles de usuarios");
+        stage.setScene(new Scene(statesPage));
+        stage.show();
+    }
 }
