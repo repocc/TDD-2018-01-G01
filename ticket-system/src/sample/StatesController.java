@@ -1,16 +1,20 @@
 package sample;
 
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class StatesController {
@@ -26,26 +30,68 @@ public class StatesController {
     @FXML
     private TextField statesText;
     @FXML
-    private Button addState;
+    private Button addStateButton;
     @FXML
-    private Button applyStatesFlow;
-    private Integer positionY = 0;
-    private List<String> states = new ArrayList<>();
+    private Button applyStatesFlowButton;
+    @FXML
+    private Button addFlowButton;
 
-    public void setRole() {
+    private Integer positionYStates = 0;
+    private Integer positionYFlow = 0;
+    private List<String> states = new ArrayList<>();
+    private Map<String, List<String>> stateFlow = new HashMap<>();
+    private String leftState;
+    private String rightState;
+
+    public void addState() {
         Label labelLeft = new Label();
         Label labelRight = new Label();
         labelLeft.setText(statesText.getText());
         labelRight.setText(statesText.getText());
-        labelLeft.setLayoutY(positionY);
-        labelRight.setLayoutY(positionY);
-        positionY += variationY;
+        labelLeft.setLayoutY(positionYStates);
+        labelRight.setLayoutY(positionYStates);
+        labelLeft.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                labelLeft.setStyle("-fx-background-color: #4d4dff;");
+                leftState = labelLeft.getText();
+            }
+        });
+        labelRight.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                labelRight.setStyle("-fx-background-color: #4d4dff;");
+                rightState = labelRight.getText();
+            }
+        });
+
+        positionYStates += variationY;
         statesShowPaneLeft.getChildren().add(labelLeft);
         statesShowPaneRight.getChildren().add(labelRight);
         states.add(statesText.getText());
     }
 
-    public void setStatesFlow() {
+    public void addFlow() {
+        if (leftState != null && rightState != null) {
+            if (stateFlow.containsKey(leftState)) {
+                stateFlow.get(leftState).add(rightState);
+            } else {
+                stateFlow.put(leftState, new ArrayList<>());
+                stateFlow.get(leftState).add(rightState);
+            }
+        }
+        this.addValueToStateFlowPane();
+    }
+
+    private void addValueToStateFlowPane() {
+        Label label = new Label();
+        label.setText(leftState + " -> " + rightState);
+        label.setLayoutY(positionYFlow);
+        positionYFlow += variationY;
+        stateFlowPane.getChildren().add(label);
+    }
+
+    public void applyStatesFlow() {
         if (states.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Warning");
@@ -57,7 +103,7 @@ public class StatesController {
         } else {
 
         }
-        Stage stage = (Stage) applyStatesFlow.getScene().getWindow();
+        Stage stage = (Stage) applyStatesFlowButton.getScene().getWindow();
         stage.close();
     }
 

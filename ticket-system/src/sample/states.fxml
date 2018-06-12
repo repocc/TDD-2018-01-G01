@@ -20,7 +20,8 @@
         </items>
       </SplitPane>
       <TextField fx:id="statesText" layoutX="32.0" layoutY="406.0" prefHeight="26.0" prefWidth="206.0" promptText="Ingrese estado..." />
-      <Button fx:id="addState" layoutX="32.0" layoutY="448.0" mnemonicParsing="false" onAction="#setRole" text="Agregar" />
-      <Button fx:id="applyStatesFlow" layoutX="526.0" layoutY="448.0" mnemonicParsing="false" onAction="#setStatesFlow" prefHeight="26.0" prefWidth="147.0" text="Aplicar" />
+      <Button fx:id="addStateButton" layoutX="32.0" layoutY="448.0" mnemonicParsing="false" onAction="#addState" text="Agregar" />
+      <Button fx:id="applyStatesFlowButton" layoutX="526.0" layoutY="448.0" mnemonicParsing="false" onAction="#applyStatesFlow" prefHeight="26.0" prefWidth="147.0" text="Aplicar" />
+      <Button fx:id="addFlowButton" layoutX="526.0" layoutY="393.0" mnemonicParsing="false" onAction="#addFlow" prefHeight="26.0" prefWidth="147.0" text="Agregar flujo" />
    </children>
 </AnchorPane>
