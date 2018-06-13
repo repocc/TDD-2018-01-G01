@@ -36,11 +36,18 @@ public class LoginController {
 
 
         if(userExists) {
-            Parent projectManagementPage = FXMLLoader.load(getClass().getResource("../resources/projectManagement.fxml"));
-            Scene projectManagementScene = new Scene(projectManagementPage);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/projectManagement.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(loader.load());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             appStage.hide();
-            appStage.setScene(projectManagementScene);
+            appStage.setScene(scene);
+            ProjectController controller = loader.<ProjectController>getController();
+            controller.initData(login.getUsers());
             appStage.show();
 
         } else {

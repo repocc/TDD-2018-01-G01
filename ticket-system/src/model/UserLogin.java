@@ -29,4 +29,8 @@ public class UserLogin {
             return false;
         }
     }
+
+    public Map<Integer, User> getUsers() {
+        return users;
+    }
 }

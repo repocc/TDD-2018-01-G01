@@ -38,29 +38,10 @@ public class RolesController {
     private Integer positionYAssignment = 0;
     private List<String> roles = new ArrayList<>();
     private Map<Integer, User> users;
+
     private Map<String, String> rolesAssignment = new HashMap<>();
     private String actualUser;
     private String actualRole;
-
-    @FXML
-    public void initialize() {
-        Parser user_parser = new Parser();
-        users = user_parser.parseUsersList();
-        for (int id: users.keySet()) {
-            Label label = new Label();
-            label.setText(users.get(id).getName());
-            label.setLayoutY(positionYUsers);
-            label.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    label.setStyle("-fx-background-color: #4d4dff;");
-                    actualUser = label.getText();
-                }
-            });
-            positionYUsers += variationY;
-            usersLeftPane.getChildren().add(label);
-        }
-    }
 
     public void addRole() {
         Label label = new Label();
@@ -106,5 +87,27 @@ public class RolesController {
             Stage stage = (Stage) applyConfigurationButton.getScene().getWindow();
             stage.close();
         }
+    }
+
+    public void initData(Map<Integer, User> users) {
+        this.users = users;
+        for (int id: users.keySet()) {
+            Label label = new Label();
+            label.setText(users.get(id).getName());
+            label.setLayoutY(positionYUsers);
+            label.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    label.setStyle("-fx-background-color: #4d4dff;");
+                    actualUser = label.getText();
+                }
+            });
+            positionYUsers += variationY;
+            usersLeftPane.getChildren().add(label);
+        }
+    }
+
+    public Map<String, String> getRolesAssignment() {
+        return rolesAssignment;
     }
 }

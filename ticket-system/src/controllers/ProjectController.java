@@ -6,15 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Project;
+import model.User;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -45,6 +43,8 @@ public class ProjectController {
     @FXML
     private Button projectFinished;
     private Map<Integer, Project> projects = new HashMap<>();
+    private Map<Integer, User> users = new HashMap<>();
+    private Map<String, String> rolesAssignment = new HashMap<>();
     private static int projectCount = 0;
     private Double initialHeight = INITIAL_HEIGHT;
 
@@ -52,38 +52,61 @@ public class ProjectController {
         this.editionMenu.setStyle("-fx-background-color: white;");
         this.createProject.setVisible(true);
         this.projectName.setVisible(true);
+        this.projectName.setText("");
         this.projectDescription.setVisible(true);
+        this.projectDescription.setText("");
         this.states.setVisible(true);
         this.projectUsers.setVisible(true);
         this.projectFinished.setVisible(true);
     }
 
     public void addProject() {
-        Project project = new Project(projectName.getText());
-        projects.put((++projectCount),project);
-        Button projectButton = new Button();
-        projectButton.setText(projectName.getText());
-        projectButton.setPrefSize(WIDTH_PROJECT, HEIGHT_PROJECT);
-        projectButton.setLayoutX(X_POSITION_PROJECT);
-        projectButton.setLayoutY(initialHeight + projectButton.getPrefHeight() + SPACE_BETWEEN_PROJECTS);
-        initialHeight = projectButton.getLayoutY();
-        projectScreen.getChildren().add(projectButton);
-        projectButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Parent projectPage = null;
-                try {
-                    projectPage = FXMLLoader.load(getClass().getResource("../resources/ticket.fxml"));
-                } catch (IOException e) {
-                    e.printStackTrace();
+        if (!projectName.getText().equals("")) {
+            Project project = new Project(projectName.getText());
+            projects.put((++projectCount), project);
+            Button projectButton = new Button();
+            projectButton.setText(projectName.getText());
+            projectButton.setPrefSize(WIDTH_PROJECT, HEIGHT_PROJECT);
+            projectButton.setLayoutX(X_POSITION_PROJECT);
+            projectButton.setLayoutY(initialHeight + projectButton.getPrefHeight() + SPACE_BETWEEN_PROJECTS);
+            initialHeight = projectButton.getLayoutY();
+            projectScreen.getChildren().add(projectButton);
+            projectButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    FXMLLoader projectPage = new FXMLLoader(getClass().getResource("../resources/ticket.fxml"));
+                    Scene projectScene = null;
+                    try {
+                        projectScene = new Scene(projectPage.load());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    appStage.hide();
+                    appStage.setScene(projectScene);
+                    TicketController controller = projectPage.<TicketController>getController();
+                    controller.initData(project.getProjectName(), rolesAssignment);
+                    appStage.show();
                 }
-                Scene projectScene = new Scene(projectPage);
-                Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                appStage.hide();
-                appStage.setScene(projectScene);
-                appStage.show();
-            }
-        });
+            });
+            this.hideEditionMenu();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Warning");
+            alert.setHeaderText(null);
+            alert.setContentText("El nombre del proyecto es un campo obligatorio");
+            alert.showAndWait();
+        }
+    }
+
+    private void hideEditionMenu() {
+        this.editionMenu.setStyle("-fx-background-color: green;");
+        this.createProject.setVisible(false);
+        this.projectName.setVisible(false);
+        this.projectDescription.setVisible(false);
+        this.states.setVisible(false);
+        this.projectUsers.setVisible(false);
+        this.projectFinished.setVisible(false);
     }
 
     public void openStatesWindow() throws IOException {
@@ -95,10 +118,24 @@ public class ProjectController {
     }
 
     public void openRolesWindow() throws IOException {
-        Parent statesPage = FXMLLoader.load(getClass().getResource("../resources/roles.fxml"));
-        Stage stage = new Stage();
-        stage.setTitle("Asignacion de roles de usuarios");
-        stage.setScene(new Scene(statesPage));
-        stage.show();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/roles.fxml"));
+        Scene scene = null;
+        try {
+            scene = new Scene(loader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage appStage = new Stage();
+        appStage.hide();
+        appStage.setScene(scene);
+        RolesController controller = loader.<RolesController>getController();
+        controller.initData(users);
+        appStage.showAndWait();
+        this.rolesAssignment = controller.getRolesAssignment();
+
+    }
+
+    public void initData(Map<Integer, User> users) {
+        this.users = users;
     }
 }

@@ -18,7 +18,7 @@ public class ResponsableController {
 
     private static Integer variationY = 15;
 
-    private Map<Integer, User> users;
+    private Map<String, String> users;
     private Integer positionYUsers = 0;
     private String actualUser;
     private String responsable;
@@ -29,22 +29,7 @@ public class ResponsableController {
 
     @FXML
     public void initialize() {
-        Parser user_parser = new Parser();
-        users = user_parser.parseUsersList();
-        for (int id : users.keySet()) {
-            Label label = new Label();
-            label.setText(users.get(id).getName());
-            label.setLayoutY(positionYUsers);
-            label.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    label.setStyle("-fx-background-color: #4d4dff;");
-                    actualUser = label.getText();
-                }
-            });
-            positionYUsers += variationY;
-            projectUsers.getChildren().add(label);
-        }
+
     }
 
     public void assignResponsable() {
@@ -61,4 +46,21 @@ public class ResponsableController {
         }
     }
 
+    public void initData(Map<String, String> users) {
+        this.users = users;
+        for (String user : users.keySet()) {
+            Label label = new Label();
+            label.setText(user);
+            label.setLayoutY(positionYUsers);
+            label.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    label.setStyle("-fx-background-color: #4d4dff;");
+                    actualUser = label.getText();
+                }
+            });
+            positionYUsers += variationY;
+            projectUsers.getChildren().add(label);
+        }
+    }
 }

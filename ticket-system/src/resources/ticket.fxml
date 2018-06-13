@@ -13,7 +13,7 @@
     <center>
         <AnchorPane fx:id="projectScreen" nodeOrientation="LEFT_TO_RIGHT" prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: green;" BorderPane.alignment="CENTER">
             <children>
-                <Label layoutX="58.0" layoutY="51.0" prefHeight="30.0" prefWidth="310.0" style="-fx-font-size: 25;" text="Proyecto 1" />
+                <Label fx:id="projectName" layoutX="58.0" layoutY="51.0" prefHeight="30.0" prefWidth="310.0" style="-fx-font-size: 25;" text="" />
                 <Pane fx:id="editionMenu" layoutX="622.0" layoutY="-1.0" prefHeight="900.0" prefWidth="278.0" style="-fx-background-color: green;">
                     <children>
                         <TextField fx:id="ticketName" layoutX="22.0" layoutY="71.0" prefHeight="26.0" prefWidth="236.0" promptText="Nombre del ticket" visible="false" />
