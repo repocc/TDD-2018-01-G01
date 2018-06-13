@@ -22,6 +22,7 @@
                         <Label fx:id="createTicketLabel" layoutX="73.0" layoutY="28.0" style="-fx-font-size: 15;" text="Crear ticket" visible="false" />
                         <Button fx:id="addResponsableButton" layoutX="22.0" layoutY="424.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="242.0" text="Responsable" visible="false" onAction="#openResponsableScreen" />
                         <Button fx:id="ticketCreatedButton" layoutX="20.0" layoutY="639.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="243.0" text="Crear ticket" visible="false" onAction="#addTicket" />
+                        <Button fx:id="saveChangesButton" layoutX="20.0" layoutY="740.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="26.0" prefWidth="243.0" text="Guardar cambios" visible="false" />
                     </children>
                 </Pane>
                 <Button fx:id="createTicketButton" layoutX="424.0" layoutY="53.0" mnemonicParsing="false" onAction="#createTicket" prefHeight="26.0" prefWidth="178.0" text="Crear Ticket" />

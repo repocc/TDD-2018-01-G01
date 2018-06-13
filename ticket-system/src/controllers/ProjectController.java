@@ -57,7 +57,7 @@ public class ProjectController {
     private String oldName;
     private Button actualButton;
     private Map<String, List<String>> stateFlow = new HashMap<>();
-    private List<String> stateList;
+    private List<String> stateList = new ArrayList<>();
 
     public void createProject() {
         this.editionMenu.setStyle("-fx-background-color: white;");
@@ -93,6 +93,10 @@ public class ProjectController {
                 }
 
             });
+            if (stateList.isEmpty()) {
+                stateList.add("Backlog");
+                stateList.add("Finished");
+            }
             this.hideEditionMenu(projectFinished);
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -115,7 +119,6 @@ public class ProjectController {
                 createProject.setVisible(true);
                 projectName.setVisible(true);
                 projectDescription.setVisible(true);
-                projectDescription.setText("");
                 states.setVisible(true);
                 projectUsers.setVisible(true);
                 saveChangesButton.setVisible(true);
