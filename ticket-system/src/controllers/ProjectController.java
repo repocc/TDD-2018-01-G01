@@ -56,6 +56,8 @@ public class ProjectController {
     private Double initialHeight = INITIAL_HEIGHT;
     private String oldName;
     private Button actualButton;
+    private Map<String, List<String>> stateFlow = new HashMap<>();
+    private List<String> stateList;
 
     public void createProject() {
         this.editionMenu.setStyle("-fx-background-color: white;");
@@ -84,7 +86,7 @@ public class ProjectController {
                 @Override
                 public void handle(MouseEvent event) {
                     if (event.getButton() == MouseButton.PRIMARY) {
-                        openTicketWindow(project.getProjectName(), event);
+                        openTicketWindow(project.getProjectName(), event, stateFlow);
                     } else if (event.getButton() == MouseButton.SECONDARY) {
                         createContextMenu(event, project, projectButton);
                     }
@@ -126,7 +128,7 @@ public class ProjectController {
 
     }
 
-    private void openTicketWindow(String projectName, MouseEvent event) {
+    private void openTicketWindow(String projectName, MouseEvent event, Map<String, List<String>> stateFlow) {
         FXMLLoader projectPage = new FXMLLoader(getClass().getResource("../resources/ticket.fxml"));
         Scene projectScene = null;
         try {
@@ -138,7 +140,7 @@ public class ProjectController {
         appStage.hide();
         appStage.setScene(projectScene);
         TicketController controller = projectPage.<TicketController>getController();
-        controller.initData(projectName, rolesAssignment);
+        controller.initData(projectName, rolesAssignment, stateList, stateFlow);
         appStage.show();
     }
 
@@ -153,14 +155,25 @@ public class ProjectController {
     }
 
     public void openStatesWindow() throws IOException {
-        Parent statesPage = FXMLLoader.load(getClass().getResource("../resources/states.fxml"));
-        Stage stage = new Stage();
-        stage.setTitle("Flujo de estados de tickets");
-        stage.setScene(new Scene(statesPage));
-        stage.show();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/states.fxml"));
+        Scene scene = null;
+        try {
+            scene = new Scene(loader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage appStage = new Stage();
+        appStage.hide();
+        appStage.setScene(scene);
+        StatesController controller = loader.<StatesController>getController();
+        appStage.showAndWait();
+        this.stateFlow = controller.getStateFlow();
+        this.stateList = controller.getStates();
     }
 
     public void openRolesWindow() throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/roles.fxml"));
         Scene scene = null;
         try {

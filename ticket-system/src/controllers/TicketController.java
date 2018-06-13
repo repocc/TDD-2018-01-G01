@@ -11,6 +11,7 @@ import model.Ticket;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -21,6 +22,8 @@ public class TicketController {
     private static final Double X_POSITION_TICKET = 58.0;
     private static final Double INITIAL_HEIGHT = 115.0;
     private static final Double SPACE_BETWEEN_TICKETS = 10.0;
+    private static final Double SPACE_BETWEEN_TICKETS_X = 60.0;
+    private static final Double Y_POSITION_LABEL = 150.0;
 
     @FXML
     private Label projectName;
@@ -47,6 +50,9 @@ public class TicketController {
     private static int ticketCount = 0;
     private Double initialHeight = INITIAL_HEIGHT;
     private Map<String, String> users;
+    private Map<String, List<String>> stateFlow;
+    private List<String> states;
+    private Double positionX = X_POSITION_TICKET;
 
 
     public void createTicket() {
@@ -111,8 +117,23 @@ public class TicketController {
         this.ticketCreatedButton.setVisible(false);
     }
 
-    public void initData(String projectName, Map<String, String> users) {
+    public void initData(String projectName, Map<String, String> users, List<String> states, Map<String, List<String>> stateFlow) {
         this.projectName.setText(projectName);
         this.users = users;
+        this.stateFlow = stateFlow;
+        this.states = states;
+        this.showStates();
+    }
+
+    private void showStates() {
+        for (String state: states) {
+            Label label = new Label();
+            label.setText(state);
+            label.setStyle("-fx-font-size: 18;");
+            label.setLayoutX(positionX);
+            label.setLayoutY(Y_POSITION_LABEL);
+            positionX += WIDTH_TICKET + SPACE_BETWEEN_TICKETS_X;
+            projectScreen.getChildren().add(label);
+        }
     }
 }

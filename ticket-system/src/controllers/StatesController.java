@@ -106,4 +106,11 @@ public class StatesController {
         stage.close();
     }
 
+    public Map<String,List<String>> getStateFlow() {
+        return this.stateFlow;
+    }
+
+    public List<String> getStates() {
+        return states;
+    }
 }
