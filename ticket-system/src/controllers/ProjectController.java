@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -15,7 +17,9 @@ import model.Project;
 import model.User;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ProjectController {
@@ -42,11 +46,16 @@ public class ProjectController {
     private Button projectUsers;
     @FXML
     private Button projectFinished;
-    private Map<Integer, Project> projects = new HashMap<>();
+    @FXML
+    private Button saveChangesButton;
+
+    private List<Project> projects = new ArrayList();
     private Map<Integer, User> users = new HashMap<>();
     private Map<String, String> rolesAssignment = new HashMap<>();
     private static int projectCount = 0;
     private Double initialHeight = INITIAL_HEIGHT;
+    private String oldName;
+    private Button actualButton;
 
     public void createProject() {
         this.editionMenu.setStyle("-fx-background-color: white;");
@@ -62,8 +71,8 @@ public class ProjectController {
 
     public void addProject() {
         if (!projectName.getText().equals("")) {
-            Project project = new Project(projectName.getText());
-            projects.put((++projectCount), project);
+            Project project = new Project(projectName.getText(), projectDescription.getText());
+            projects.add(project);
             Button projectButton = new Button();
             projectButton.setText(projectName.getText());
             projectButton.setPrefSize(WIDTH_PROJECT, HEIGHT_PROJECT);
@@ -74,22 +83,15 @@ public class ProjectController {
             projectButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    FXMLLoader projectPage = new FXMLLoader(getClass().getResource("../resources/ticket.fxml"));
-                    Scene projectScene = null;
-                    try {
-                        projectScene = new Scene(projectPage.load());
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if (event.getButton() == MouseButton.PRIMARY) {
+                        openTicketWindow(project.getProjectName(), event);
+                    } else if (event.getButton() == MouseButton.SECONDARY) {
+                        createContextMenu(event, project, projectButton);
                     }
-                    Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    appStage.hide();
-                    appStage.setScene(projectScene);
-                    TicketController controller = projectPage.<TicketController>getController();
-                    controller.initData(project.getProjectName(), rolesAssignment);
-                    appStage.show();
                 }
+
             });
-            this.hideEditionMenu();
+            this.hideEditionMenu(projectFinished);
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Warning");
@@ -99,14 +101,55 @@ public class ProjectController {
         }
     }
 
-    private void hideEditionMenu() {
+    private void createContextMenu(MouseEvent event, Project project, Button button) {
+        this.oldName = project.getProjectName();
+        ContextMenu menu = new ContextMenu();
+        MenuItem item1 = new MenuItem("Editar");
+        item1.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                editionMenu.setStyle("-fx-background-color: white;");
+                createProject.setVisible(true);
+                projectName.setVisible(true);
+                projectDescription.setVisible(true);
+                projectDescription.setText("");
+                states.setVisible(true);
+                projectUsers.setVisible(true);
+                saveChangesButton.setVisible(true);
+                setFields(project);
+                actualButton = button;
+            }
+        });
+        menu.getItems().addAll(item1);
+        menu.show(button, event.getScreenX(), event.getScreenY());
+
+    }
+
+    private void openTicketWindow(String projectName, MouseEvent event) {
+        FXMLLoader projectPage = new FXMLLoader(getClass().getResource("../resources/ticket.fxml"));
+        Scene projectScene = null;
+        try {
+            projectScene = new Scene(projectPage.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.hide();
+        appStage.setScene(projectScene);
+        TicketController controller = projectPage.<TicketController>getController();
+        controller.initData(projectName, rolesAssignment);
+        appStage.show();
+    }
+
+    private void hideEditionMenu(Button button) {
         this.editionMenu.setStyle("-fx-background-color: green;");
         this.createProject.setVisible(false);
         this.projectName.setVisible(false);
         this.projectDescription.setVisible(false);
         this.states.setVisible(false);
         this.projectUsers.setVisible(false);
-        this.projectFinished.setVisible(false);
+        button.setVisible(false);
     }
 
     public void openStatesWindow() throws IOException {
@@ -137,5 +180,29 @@ public class ProjectController {
 
     public void initData(Map<Integer, User> users) {
         this.users = users;
+    }
+
+    public void setFields(Project project) {
+        this.projectName.setText(project.getProjectName());
+        this.projectDescription.setText(project.getDescription());
+    }
+
+    public void saveChanges() {
+        if (!projectName.getText().equals("")) {
+            for (Project project : projects) {
+                if (project.getProjectName().equals(oldName)) {
+                    project.setProjectName(projectName.getText());
+                    project.setDescription(projectDescription.getText());
+                }
+            }
+            actualButton.setText(projectName.getText());
+            this.hideEditionMenu(saveChangesButton);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Warning");
+            alert.setHeaderText(null);
+            alert.setContentText("El nombre del proyecto es un campo obligatorio");
+            alert.showAndWait();
+        }
     }
 }

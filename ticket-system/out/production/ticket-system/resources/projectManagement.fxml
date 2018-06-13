@@ -22,6 +22,7 @@
                   <Button fx:id="states" layoutX="22.0" layoutY="370.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="240.0" text="Flujo de estado de tickets" visible="false" onAction="#openStatesWindow" />
                   <Button fx:id="projectUsers" layoutX="23.0" layoutY="424.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="242.0" text="Colaboradores" visible="false" onAction="#openRolesWindow" />
                   <Button fx:id="projectFinished" layoutX="20.0" layoutY="639.0" mnemonicParsing="false" onAction="#addProject" prefHeight="26.0" prefWidth="243.0" text="Crear proyecto" visible="false" />
+                  <Button fx:id="saveChangesButton" layoutX="20.0" layoutY="740.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="26.0" prefWidth="243.0" text="Guardar cambios" visible="false" />
                </children>
             </Pane>
             <Button fx:id="createProjectButton" layoutX="424.0" layoutY="53.0" mnemonicParsing="false" onAction="#createProject" prefHeight="26.0" prefWidth="178.0" text="Crear proyecto" />
