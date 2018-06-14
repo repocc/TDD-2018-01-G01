@@ -1,5 +1,7 @@
 package model;
 
+import views.AlertView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,8 +42,11 @@ public class Project {
 
     public void checkStates() {
         if (states.isEmpty()) {
+            AlertView.createAlert("No se han agregado estados. Se agregara un estado inicial y uno final por defecto");
             states.add("Backlog");
-            states.add("Finished");
+            states.add("Done");
+            stateFlow.put("Backlog", new ArrayList<>());
+            stateFlow.get("Backlog").add("Done");
         }
     }
 

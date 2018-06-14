@@ -92,6 +92,8 @@ public class StatesController {
             AlertView.createAlert("No se han agregado estados. Se agregara un estado inicial y uno final por defecto");
             states.add("Backlog");
             states.add("Done");
+            stateFlow.put("Backlog", new ArrayList<>());
+            stateFlow.get("Backlog").add("Done");
         }
         Stage stage = (Stage) applyStatesFlowButton.getScene().getWindow();
         stage.close();
