@@ -12,6 +12,7 @@ public class Project {
     private List<String> states;
     private Map<String, List<String>> stateFlow;
     private Map<String, String> rolesAssignment;
+    private List<Ticket> tickets;
 
     public Project(String name, String description){
         this.projectName = name;
@@ -19,6 +20,7 @@ public class Project {
         this.states = new ArrayList<>();
         this.stateFlow = new HashMap<>();
         this.rolesAssignment = new HashMap<>();
+        this.tickets = new ArrayList<>();
     }
 
     public String getProjectName(){
@@ -71,6 +73,10 @@ public class Project {
 
         this.setProjectName(name);
         this.setDescription(description);
+    }
+
+    public void addTicket(Ticket ticket) {
+        this.tickets.add(ticket);
     }
 }
 

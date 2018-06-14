@@ -49,7 +49,6 @@ public class ProjectController {
     private TicketSystem system;
     private ProjectView view;
     private Project actualProject;
-    private Map<String, String> rolesAssignment = new HashMap<>();
     private Button actualButton;
 
     public void initData(Map<Integer, User> users) {
@@ -79,14 +78,15 @@ public class ProjectController {
             actualProject.setDescription(projectDescription.getText());
             system.addProject(actualProject);
             Button projectButton = new Button();
+            Project project = actualProject;
             this.view.addProject(projectButton);
             projectButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     if (event.getButton() == MouseButton.PRIMARY) {
-                        openTicketWindow(actualProject, event);
+                        openTicketWindow(project, event);
                     } else if (event.getButton() == MouseButton.SECONDARY) {
-                        createContextMenu(event, actualProject, projectButton);
+                        createContextMenu(event, project, projectButton);
                     }
                 }
 
@@ -94,7 +94,7 @@ public class ProjectController {
             actualProject.checkStates();
             this.hideEditionMenu(projectFinished);
         } else {
-            AlertView alertView = new AlertView("El nombre del proyecto es un campo obligatorio");
+            AlertView.createAlert("El nombre del proyecto es un campo obligatorio");
         }
     }
 
@@ -128,7 +128,7 @@ public class ProjectController {
         appStage.hide();
         appStage.setScene(projectScene);
         TicketController controller = projectPage.<TicketController>getController();
-        controller.initData(project.getProjectName(), rolesAssignment, project.getStates(), project.getStateFlow());
+        controller.initData(project);
         appStage.show();
     }
 
@@ -184,7 +184,7 @@ public class ProjectController {
             actualButton.setText(projectName.getText());
             this.hideEditionMenu(saveChangesButton);
         } else {
-            AlertView alertView = new AlertView("El nombre del proyecto es un campo obligatorio");
+            AlertView.createAlert("El nombre del proyecto es un campo obligatorio");
         }
     }
 }
