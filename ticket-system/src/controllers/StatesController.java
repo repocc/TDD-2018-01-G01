@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import views.AlertView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,11 +30,7 @@ public class StatesController {
     @FXML
     private TextField statesText;
     @FXML
-    private Button addStateButton;
-    @FXML
     private Button applyStatesFlowButton;
-    @FXML
-    private Button addFlowButton;
 
     private Integer positionYStates = 0;
     private Integer positionYFlow = 0;
@@ -92,15 +89,9 @@ public class StatesController {
 
     public void applyStatesFlow() {
         if (states.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Warning");
-            alert.setHeaderText(null);
-            alert.setContentText("No se han agregado estados. Se agregara un estado inicial y uno final por defecto");
-            alert.showAndWait();
+            AlertView.createAlert("No se han agregado estados. Se agregara un estado inicial y uno final por defecto");
             states.add("Backlog");
             states.add("Done");
-        } else {
-
         }
         Stage stage = (Stage) applyStatesFlowButton.getScene().getWindow();
         stage.close();

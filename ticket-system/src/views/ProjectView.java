@@ -45,33 +45,21 @@ public class ProjectView {
         }
     }
 
-    public AnchorPane getProjectScreen() {
-        return projectScreen;
-    }
 
     public void setProjectScreen(AnchorPane projectScreen) {
         this.projectScreen = projectScreen;
     }
 
-    public Pane getEditionMenu() {
-        return editionMenu;
-    }
 
     public void setEditionMenu(Pane editionMenu) {
         this.editionMenu = editionMenu;
     }
 
-    public Label getCreateProject() {
-        return createProject;
-    }
 
     public void setCreateProject(Label createProject) {
         this.createProject = createProject;
     }
 
-    public TextField getProjectName() {
-        return projectName;
-    }
 
     public void setProjectName(TextField projectName) {
         this.projectName = projectName;
@@ -85,33 +73,20 @@ public class ProjectView {
         this.projectDescription = projectDescription;
     }
 
-    public Button getStates() {
-        return states;
-    }
 
     public void setStates(Button states) {
         this.states = states;
-    }
-
-    public Button getProjectUsers() {
-        return projectUsers;
     }
 
     public void setProjectUsers(Button projectUsers) {
         this.projectUsers = projectUsers;
     }
 
-    public Button getProjectFinished() {
-        return projectFinished;
-    }
 
     public void setProjectFinished(Button projectFinished) {
         this.projectFinished = projectFinished;
     }
 
-    public Button getSaveChangesButton() {
-        return saveChangesButton;
-    }
 
     public void setSaveChangesButton(Button saveChangesButton) {
         this.saveChangesButton = saveChangesButton;

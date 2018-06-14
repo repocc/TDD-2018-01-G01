@@ -30,7 +30,7 @@ public class LoginController {
     @FXML
     public void initialize() {
         this.login = new UserLogin();
-        this.view = new LoginView(username, password, validationMessage);
+        this.view = new LoginView(validationMessage);
     }
 
     public void login(ActionEvent event) throws IOException {

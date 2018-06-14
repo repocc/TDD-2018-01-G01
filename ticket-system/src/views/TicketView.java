@@ -1,7 +1,6 @@
 package views;
 
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -10,7 +9,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-import javax.xml.soap.Text;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class TicketView {
     private static final Double SPACE_BETWEEN_TICKETS = 10.0;
     private static final Double SPACE_BETWEEN_TICKETS_X = 60.0;
     private static final Double Y_POSITION_LABEL = 150.0;
-    private static final Double variationY = 15.0;
+    private static final Double VARIATION_Y = 15.0;
 
     private Label projectName;
     private AnchorPane projectScreen;
@@ -70,89 +68,56 @@ public class TicketView {
         }
     }
 
-    public Label getProjectName() {
-        return projectName;
-    }
 
     public void setProjectName(Label projectName) {
         this.projectName = projectName;
     }
 
-    public AnchorPane getProjectScreen() {
-        return projectScreen;
-    }
 
     public void setProjectScreen(AnchorPane projectScreen) {
         this.projectScreen = projectScreen;
     }
 
-    public Pane getEditionMenu() {
-        return editionMenu;
-    }
 
     public void setEditionMenu(Pane editionMenu) {
         this.editionMenu = editionMenu;
     }
 
-    public TextField getTicketName() {
-        return ticketName;
-    }
 
     public void setTicketName(TextField ticketName) {
         this.ticketName = ticketName;
     }
 
-    public TextArea getTicketDescription() {
-        return ticketDescription;
-    }
 
     public void setTicketDescription(TextArea ticketDescription) {
         this.ticketDescription = ticketDescription;
     }
 
-    public TextField getTicketType() {
-        return ticketType;
-    }
 
     public void setTicketType(TextField ticketType) {
         this.ticketType = ticketType;
     }
 
-    public Label getCreateTicketLabel() {
-        return createTicketLabel;
-    }
 
     public void setCreateTicketLabel(Label createTicketLabel) {
         this.createTicketLabel = createTicketLabel;
     }
 
-    public Button getAddResponsableButton() {
-        return addResponsableButton;
-    }
 
     public void setAddResponsableButton(Button addResponsableButton) {
         this.addResponsableButton = addResponsableButton;
     }
 
-    public Button getTicketCreatedButton() {
-        return ticketCreatedButton;
-    }
 
     public void setTicketCreatedButton(Button ticketCreatedButton) {
         this.ticketCreatedButton = ticketCreatedButton;
     }
 
-    public Button getCreateTicketButton() {
-        return createTicketButton;
-    }
 
     public void setCreateTicketButton(Button createTicketButton) {
         this.createTicketButton = createTicketButton;
     }
 
-    public Button getSaveChangesButton() {
-        return saveChangesButton;
-    }
 
     public void setSaveChangesButton(Button saveChangesButton) {
         this.saveChangesButton = saveChangesButton;
@@ -165,7 +130,7 @@ public class TicketView {
         this.ticketType.setVisible(visibility);
         this.ticketDescription.setVisible(visibility);
         this.addResponsableButton.setVisible(visibility);
-        this.ticketCreatedButton.setVisible(visibility);
+        button.setVisible(visibility);
     }
 
     public void setTexts() {
@@ -226,7 +191,7 @@ public class TicketView {
                     stateClicked = label.getText();
                 }
             });
-            positionYStates += variationY;
+            positionYStates += VARIATION_Y;
             pane.getChildren().add(label);
         }
     }

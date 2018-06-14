@@ -1,16 +1,13 @@
 package controllers;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.Parser;
-import model.User;
+import views.AlertView;
 
 import java.util.Map;
 
@@ -18,36 +15,24 @@ public class ResponsableController {
 
     private static Integer variationY = 15;
 
-    private Map<String, String> users;
     private Integer positionYUsers = 0;
     private String actualUser;
-    private String responsable;
     @FXML
     private AnchorPane projectUsers;
     @FXML
     private Button assignResponsableButton;
 
-    @FXML
-    public void initialize() {
-
-    }
 
     public void assignResponsable() {
         if (this.actualUser != null) {
-            this.responsable = this.actualUser;
             Stage stage = (Stage) assignResponsableButton.getScene().getWindow();
             stage.close();
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Warning");
-            alert.setHeaderText(null);
-            alert.setContentText("Debe asignar un responsable");
-            alert.showAndWait();
+            AlertView.createAlert("Debe asignar un responsable");
         }
     }
 
     public void initData(Map<String, String> users) {
-        this.users = users;
         for (String user : users.keySet()) {
             Label label = new Label();
             label.setText(user);
