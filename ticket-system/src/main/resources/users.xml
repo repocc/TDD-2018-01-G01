@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+<user>
+    <id>1245</id>
+    <user_name>luciana</user_name>
+    <password>aaaa</password>
+</user>
+<user>
+	<id>1246</id>
+    <user_name>franco</user_name>
+    <password>bbbb</password>
+</user>
+<user>
+	<id>1247</id>
+    <user_name>florencia</user_name>
+    <password>cccc</password>
+</user>
+<user>
+	<id>1248</id>
+    <user_name>diego</user_name>
+    <password>eeee</password>
+</user>
+<user>
+	<id>1249</id>
+    <user_name>carlos</user_name>
+    <password>ffff</password>
+</user>
+<user>
+	<id>1250</id>
+    <user_name>agustin</user_name>
+    <password>gggg</password>
+</user>
+<user>
+	<id>1251</id>
+    <user_name>anibal</user_name>
+    <password>hhhh</password>
+</user>
+</users>
