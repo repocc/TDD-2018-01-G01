@@ -113,7 +113,7 @@ public class ProjectController {
     }
 
     private void openTicketWindow(Project project, MouseEvent event) {
-        FXMLLoader projectPage = new FXMLLoader(getClass().getResource("../resources/ticket.fxml"));
+        FXMLLoader projectPage = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("ticket.fxml")));
         Scene projectScene = null;
         try {
             projectScene = new Scene(projectPage.load());
@@ -133,8 +133,7 @@ public class ProjectController {
     }
 
     public void openStatesWindow() throws IOException {
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/states.fxml"));
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("states.fxml")));
         Scene scene = null;
         try {
             scene = new Scene(loader.load());
@@ -152,7 +151,7 @@ public class ProjectController {
 
     public void openRolesWindow() throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/roles.fxml"));
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("roles.fxml")));
         Scene scene = null;
         try {
             scene = new Scene(loader.load());

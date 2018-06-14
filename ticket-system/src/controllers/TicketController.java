@@ -108,8 +108,7 @@ public class TicketController {
     }
 
     public void openResponsableScreen() throws IOException {
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/responsable.fxml"));
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("responsable.fxml")))
         Scene scene = null;
         try {
             scene = new Scene(loader.load());

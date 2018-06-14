@@ -47,7 +47,7 @@ public class LoginController {
 
     private void openProjectManagementWindow(ActionEvent event) {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/projectManagement.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("projectManagement.fxml"));
         Scene scene = null;
         try {
             scene = new Scene(loader.load());
