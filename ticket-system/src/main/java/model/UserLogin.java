@@ -1,5 +1,8 @@
 package model;
 
+import websockets.JsonWebSocketLogger;
+import websockets.Serializer;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +11,8 @@ public class UserLogin {
     private Map<Integer, User> users;
     private Map<String, Integer> names;
     private Map<String, Integer> passwords;
+
+    public JsonWebSocketLogger Logger = JsonWebSocketLogger.getInstance();
 
     public UserLogin() {
         Parser user_parser = new Parser();
@@ -24,6 +29,7 @@ public class UserLogin {
 
     public Boolean validateUser(String username, String password) {
         if (names.containsKey(username) && passwords.containsKey(password)) {
+            Logger.publishData(Serializer.logUserLoggin(username));
             return names.get(username).equals(passwords.get(password));
         } else {
             return false;
